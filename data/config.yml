@@ -1,0 +1,16 @@
+repos:
+  - github: "10up/ads-txt"
+    label: "Ads.txt Manager"
+    wordpress_slug: "ads-txt"
+
+  - github: "10up/Ad-Refresh-Control"
+    label: "Ad Refresh Control"
+    wordpress_slug: "ad-refresh-control"
+
+  - github: "Fueled/ai-provider-for-ollama"
+    label: "AI Provider for Ollama"
+    wordpress_slug: "ai-provider-for-ollama"
+
+  - github: "10up/classifai"
+    label: "ClassifAI"
+    wordpress_slug: null
