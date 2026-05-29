@@ -11,7 +11,7 @@ A self-contained OSS metrics tracker for Fueled's public GitHub repos and their 
 1. On the 1st of each month at 6AM UTC, a GitHub Action runs `scripts/collect_stats.py`
 2. The script fetches stars, forks, watchers, dependents, and release counts from the GitHub API, plus active installs, downloads, and ratings from the WordPress.org Plugins API
 3. Results are written to `data/stats/YYYY-MM.json` and committed back to the repo
-4. The static dashboard at `dashboard/index.html` loads those JSON files via `fetch()` and renders charts and tables
+4. The static dashboard at `index.html` loads those JSON files via `fetch()` and renders charts and tables
 
 ---
 
@@ -27,7 +27,7 @@ This repo uses the org-level secret `BOT_PUBLIC_GITHUB_TOKEN` (a PAT with `publi
 
 1. Go to **Settings → Pages**
 2. Source: **Deploy from a branch**
-3. Branch: `main`, folder: `/dashboard`
+3. Branch: `main`, folder: `/` (root)
 4. Save — GitHub will publish the dashboard at `https://fueled.github.io/oss-metrics/`
 
 ### 3. Trigger the first run
@@ -81,8 +81,7 @@ oss-metrics/
 ├── scripts/
 │   ├── collect_stats.py        # Data collection script
 │   └── requirements.txt
-├── dashboard/
-│   └── index.html              # Self-contained dashboard
+├── index.html                  # Self-contained dashboard (GitHub Pages root)
 └── README.md
 ```
 
