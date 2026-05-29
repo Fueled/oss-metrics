@@ -21,11 +21,7 @@ A self-contained OSS metrics tracker for Fueled's public GitHub repos and their 
 
 The collection script requires a GitHub Personal Access Token to raise the API rate limit from 60 to 5,000 requests/hour.
 
-1. Create a PAT at **GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens**
-   - Scope required: **`public_repo` (read-only)** — all tracked repos are public
-2. In this repo, go to **Settings → Secrets and variables → Actions → New repository secret**
-   - Name: `GH_TOKEN`
-   - Value: your PAT
+This repo uses the org-level secret `BOT_PUBLIC_GITHUB_TOKEN` (a PAT with `public_repo` read-only scope). No additional secret setup is needed — the org secret is inherited automatically.
 
 ### 2. Enable GitHub Pages
 

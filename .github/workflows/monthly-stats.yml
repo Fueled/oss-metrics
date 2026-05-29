@@ -23,7 +23,7 @@ jobs:
 
       - name: Collect stats
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.BOT_PUBLIC_GITHUB_TOKEN }}
         run: python scripts/collect_stats.py
 
       - name: Commit data file
