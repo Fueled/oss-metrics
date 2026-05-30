@@ -18,8 +18,10 @@ CONFIG_PATH = REPO_ROOT / "data" / "config.yml"
 STATS_DIR = REPO_ROOT / "data" / "stats"
 INDEX_PATH = STATS_DIR / "index.json"
 
-GH_API = "https://api.github.com"
-WP_API = "https://api.wordpress.org/plugins/info/1.0/{slug}.json"
+GH_API     = "https://api.github.com"
+WP_API     = "https://api.wordpress.org/plugins/info/1.0/{slug}.json"
+NPM_DL_API = "https://api.npmjs.org/downloads/point/{start}:{end}/{package}"
+NPM_DEP_API = "https://registry.npmjs.org/-/v1/search?text=dependencies:{package}&size=0"
 
 
 def gh_headers():
@@ -146,6 +148,33 @@ def fetch_dependents(owner_repo: str) -> tuple[int | None, int | None]:
         return None, None
 
 
+def fetch_npm(package: str, period: str) -> dict | None:
+    """Fetch monthly downloads and dependent count from npm public APIs."""
+    start, end = period_bounds(period)
+    start_str = start.strftime("%Y-%m-%d")
+    end_str   = (end - timedelta(seconds=1)).strftime("%Y-%m-%d")
+    try:
+        # Monthly downloads
+        dl_url = NPM_DL_API.format(start=start_str, end=end_str, package=package)
+        dl_r = requests.get(dl_url, timeout=30)
+        dl_r.raise_for_status()
+        downloads = dl_r.json().get("downloads")
+
+        # Dependents count via registry search
+        dep_url = NPM_DEP_API.format(package=package)
+        dep_r = requests.get(dep_url, timeout=30)
+        dep_r.raise_for_status()
+        dependents = dep_r.json().get("total")
+
+        return {
+            "monthly_downloads": downloads,
+            "dependents": dependents,
+        }
+    except Exception as e:
+        print(f"  ERROR fetching npm stats for {package}: {e}", file=sys.stderr)
+        return None
+
+
 def fetch_wordpress(slug: str) -> dict | None:
     url = WP_API.format(slug=slug)
     try:
@@ -167,8 +196,9 @@ def fetch_wordpress(slug: str) -> dict | None:
 
 def collect_repo(repo_cfg: dict, period: str) -> dict:
     owner_repo = repo_cfg["github"]
-    label = repo_cfg["label"]
-    wp_slug = repo_cfg.get("wordpress_slug")
+    label      = repo_cfg["label"]
+    wp_slug    = repo_cfg.get("wordpress_slug")
+    npm_slug   = repo_cfg.get("npm_slug")
 
     print(f"\n{'─'*60}")
     print(f"  {label} ({owner_repo})")
@@ -214,11 +244,19 @@ def collect_repo(repo_cfg: dict, period: str) -> dict:
                   f"downloads: {wp_stats['total_downloads']}  "
                   f"rating: {wp_stats['rating']}/100 ({wp_stats['num_ratings']} ratings)")
 
+    npm_stats = None
+    if npm_slug:
+        npm_stats = fetch_npm(npm_slug, period)
+        if npm_stats:
+            print(f"  npm monthly downloads: {npm_stats['monthly_downloads']}  "
+                  f"dependents: {npm_stats['dependents']}")
+
     return {
-        "github": owner_repo,
-        "label": label,
-        "github_stats": github_stats,
+        "github":          owner_repo,
+        "label":           label,
+        "github_stats":    github_stats,
         "wordpress_stats": wp_stats,
+        "npm_stats":       npm_stats,
     }
 
 

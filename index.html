@@ -263,6 +263,8 @@ const COLORS = {
   installs:  '#58a6ff',
   downloads: '#3fb950',
   rating:    '#ffa657',
+  npm_dl:    '#e879f9',
+  npm_dep:   '#67e8f9',
 };
 
 const DATA_BASE = './data/stats/';
@@ -346,6 +348,19 @@ function buildAggregateTimeseries(months) {
       };
     }
 
+    const npmRepos = repos.filter(r => r.npm_stats != null);
+    let npmStats = null;
+    if (npmRepos.length > 0) {
+      const sumNpm = key => {
+        const vals = npmRepos.map(r => r.npm_stats[key]).filter(v => v != null);
+        return vals.length ? vals.reduce((a, b) => a + b, 0) : null;
+      };
+      npmStats = {
+        monthly_downloads: sumNpm('monthly_downloads'),
+        dependents:        sumNpm('dependents'),
+      };
+    }
+
     return {
       period: m.period,
       repo: {
@@ -361,6 +376,7 @@ function buildAggregateTimeseries(months) {
           used_by_total:        sumGh('used_by_total'),
         },
         wordpress_stats: wpStats,
+        npm_stats:       npmStats,
       },
     };
   });
@@ -433,7 +449,10 @@ function renderPanel(timeseries) {
     return r != null ? Math.round(r / 20 * 10) / 10 : null;
   });
 
-  const hasWp = timeseries.some(t => t.repo?.wordpress_stats != null);
+  const hasWp  = timeseries.some(t => t.repo?.wordpress_stats != null);
+  const hasNpm = timeseries.some(t => t.repo?.npm_stats != null);
+
+  const npm      = k => timeseries.map(t => t.repo?.npm_stats?.[k] ?? null);
 
   const wpBlock = hasWp ? `
     <div class="section-divider"><span>WordPress.org</span></div>
@@ -448,6 +467,17 @@ function renderPanel(timeseries) {
     <div class="chart-box">
       <h3>Rating (0–5)</h3>
       <canvas id="wp-rating"></canvas>
+    </div>` : '';
+
+  const npmBlock = hasNpm ? `
+    <div class="section-divider"><span>npm</span></div>
+    <div class="chart-box">
+      <h3>Monthly Downloads</h3>
+      <canvas id="npm-downloads"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Dependents</h3>
+      <canvas id="npm-dependents"></canvas>
     </div>` : '';
 
   container.innerHTML = `
@@ -474,6 +504,7 @@ function renderPanel(timeseries) {
         <canvas id="gh-releases"></canvas>
       </div>
       ${wpBlock}
+      ${npmBlock}
       <div class="section-divider"><span>Monthly Data</span></div>
       <div class="chart-box full-width table-wrapper">
         <div id="data-table"></div>
@@ -499,11 +530,16 @@ function renderPanel(timeseries) {
       { min: 0, max: 5, ticks: { stepSize: 1 } });
   }
 
-  renderTable(document.getElementById('data-table'), timeseries, hasWp, wpRating());
+  if (hasNpm) {
+    makeLineChart(document.getElementById('npm-downloads'),  labels, [ds('Monthly Downloads', npm('monthly_downloads'), COLORS.npm_dl)]);
+    makeLineChart(document.getElementById('npm-dependents'), labels, [ds('Dependents',         npm('dependents'),        COLORS.npm_dep)]);
+  }
+
+  renderTable(document.getElementById('data-table'), timeseries, hasWp, wpRating(), hasNpm, npm);
 }
 
 // ── Table renderer ────────────────────────────────────────────
-function renderTable(container, timeseries, hasWp, ratingData) {
+function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn) {
   const rows       = [...timeseries].reverse();
   const ratingRows = ratingData ? [...ratingData].reverse() : [];
 
@@ -520,9 +556,17 @@ function renderTable(container, timeseries, hasWp, ratingData) {
     { key: 'rating',          label: 'Rating (0–5)',    src: 'wp-rating' },
     { key: 'num_ratings',     label: '# Ratings',       src: 'wp' },
   ] : [];
+  const npmCols = hasNpm ? [
+    { key: 'monthly_downloads', label: 'npm Downloads', src: 'npm' },
+    { key: 'dependents',        label: 'npm Dependents', src: 'npm' },
+  ] : [];
 
-  const allCols = [...ghCols, ...wpCols];
+  const allCols = [...ghCols, ...wpCols, ...npmCols];
   const headers = ['Month', ...allCols.flatMap(c => [c.label, 'Δ'])];
+
+  // Pre-build reversed npm series arrays for table use
+  const npmDlRows  = hasNpm ? [...npmFn('monthly_downloads')].reverse() : [];
+  const npmDepRows = hasNpm ? [...npmFn('dependents')].reverse() : [];
 
   const tbody = rows.map((row, i) => {
     const prev   = rows[i + 1];
@@ -538,6 +582,10 @@ function renderTable(container, timeseries, hasWp, ratingData) {
         prv = ratingRows[i + 1] ?? null;
       } else if (col.src === 'wp') {
         now = wpNow[col.key];  prv = wpPrev?.[col.key];
+      } else if (col.src === 'npm') {
+        const arr = col.key === 'monthly_downloads' ? npmDlRows : npmDepRows;
+        now = arr[i]     ?? null;
+        prv = arr[i + 1] ?? null;
       } else {
         now = ghNow[col.key];  prv = ghPrev?.[col.key];
       }
