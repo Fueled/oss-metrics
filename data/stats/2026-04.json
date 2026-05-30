@@ -1,0 +1,77 @@
+{
+  "collected_at": "2026-05-30T21:40:59Z",
+  "period": "2026-04",
+  "repos": [
+    {
+      "github": "10up/ads-txt",
+      "label": "Ads.txt Manager",
+      "github_stats": {
+        "stars": null,
+        "watchers": null,
+        "forks": null,
+        "releases_this_month": null,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": null
+      },
+      "wordpress_stats": {
+        "active_installs": null,
+        "total_downloads": 1958893,
+        "rating": 94,
+        "num_ratings": 15
+      }
+    },
+    {
+      "github": "10up/Ad-Refresh-Control",
+      "label": "Ad Refresh Control",
+      "github_stats": {
+        "stars": null,
+        "watchers": null,
+        "forks": null,
+        "releases_this_month": null,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": null
+      },
+      "wordpress_stats": {
+        "active_installs": null,
+        "total_downloads": 108710,
+        "rating": 100,
+        "num_ratings": 1
+      }
+    },
+    {
+      "github": "Fueled/ai-provider-for-ollama",
+      "label": "AI Provider for Ollama",
+      "github_stats": {
+        "stars": null,
+        "watchers": null,
+        "forks": null,
+        "releases_this_month": null,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": null
+      },
+      "wordpress_stats": {
+        "active_installs": null,
+        "total_downloads": 920,
+        "rating": 100,
+        "num_ratings": 2
+      }
+    },
+    {
+      "github": "10up/classifai",
+      "label": "ClassifAI",
+      "github_stats": {
+        "stars": null,
+        "watchers": null,
+        "forks": null,
+        "releases_this_month": null,
+        "used_by_repositories": 2,
+        "used_by_packages": null,
+        "used_by_total": null
+      },
+      "wordpress_stats": null
+    }
+  ]
+}
