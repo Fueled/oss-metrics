@@ -14,12 +14,212 @@ repos:
     wordpress_slug: "ai-provider-for-ollama"
     npm_slug: null
 
-  - github: "10up/classifai"
-    label: "ClassifAI"
-    wordpress_slug: null
+  - github: "10up/autoshare-for-twitter"
+    label: "Autoshare for Twitter"
+    wordpress_slug: "autoshare-for-twitter"
+    npm_slug: null
+
+  - github: "10up/maps-block-apple"
+    label: "Apple Maps Block"
+    wordpress_slug: "maps-block-apple"
     npm_slug: null
 
   - github: "10up/block-components"
     label: "Block Components"
     wordpress_slug: null
     npm_slug: "@10up/block-components"
+
+  - github: "10up/classifai"
+    label: "ClassifAI"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/convert-to-blocks"
+    label: "Convert to Blocks"
+    wordpress_slug: "convert-to-blocks"
+    npm_slug: null
+
+  - github: "Fueled/django-init"
+    label: "Django Init"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/distributor"
+    label: "Distributor"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/eight-day-week"
+    label: "Eight Day Week"
+    wordpress_slug: "eight-day-week-print-workflow"
+    npm_slug: null
+
+  - github: "10up/ElasticPress"
+    label: "ElasticPress"
+    wordpress_slug: "elasticpress"
+    npm_slug: null
+
+  - github: "10up/ElasticPressLabs"
+    label: "ElasticPress Labs"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/embed-block-figma"
+    label: "Figma Block"
+    wordpress_slug: "embed-block-figma"
+    npm_slug: null
+
+  - github: "10up/Engineering-Best-Practices"
+    label: "Engineering Best Practices"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "Fueled/fastlane-plugin-fueled"
+    label: "Fueled Fastlane Plugin"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/figma-to-wordpress-theme-json-exporter"
+    label: "Figma to WordPress theme.json Exporter"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "Fueled/ios-utilities"
+    label: "FueledUtils"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/actions-wordpress"
+    label: "GitHub Actions"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/action-wordpress-plugin-deploy"
+    label: "GHA Plugin Deploy"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/action-wordpress-plugin-build-zip"
+    label: "GHA Plugin Build"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/action-wordpress-plugin-asset-update"
+    label: "GHA Assets Update"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/action-repo-automator"
+    label: "GHA Repo Automator"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/wpcs-action"
+    label: "GHA WPCS"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/wp-scanner-action"
+    label: "GHA WP Scanner"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/gutenberg-best-practices"
+    label: "Gutenberg Best Practices"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/headstartwp"
+    label: "HeadstartWP"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/insecure-content-warning"
+    label: "Insecure Content Warning"
+    wordpress_slug: "insecure-content-warning"
+    npm_slug: null
+
+  - github: "10up/insert-special-characters"
+    label: "Insert Special Characters"
+    wordpress_slug: "insert-special-characters"
+    npm_slug: null
+
+  - github: "10up/windows-azure-storage"
+    label: "Microsoft Azure Storage"
+    wordpress_slug: "windows-azure-storage"
+    npm_slug: null
+
+  - github: "10up/Open-Source-Best-Practices"
+    label: "Open Source Best Practices"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/publisher-media-kit"
+    label: "Publisher Media Kit"
+    wordpress_slug: "publisher-media-kit"
+    npm_slug: null
+
+  - github: "10up/restricted-site-access"
+    label: "Restricted Site Access"
+    wordpress_slug: "restricted-site-access"
+    npm_slug: null
+
+  - github: "10up/safe-redirect-manager"
+    label: "Safe Redirect Manager"
+    wordpress_slug: "safe-redirect-manager"
+    npm_slug: null
+
+  - github: "10up/safe-svg"
+    label: "Safe SVG"
+    wordpress_slug: "safe-svg"
+    npm_slug: null
+
+  - github: "10up/simple-local-avatars"
+    label: "Simple Local Avatars"
+    wordpress_slug: "simple-local-avatars"
+    npm_slug: null
+
+  - github: "10up/simple-page-ordering"
+    label: "Simple Page Ordering"
+    wordpress_slug: "simple-page-ordering"
+    npm_slug: null
+
+  - github: "10up/simple-podcasting"
+    label: "Simple Podcasting"
+    wordpress_slug: "simple-podcasting"
+    npm_slug: null
+
+  - github: "10up/10up-toolkit"
+    label: "10up Toolkit"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "Fueled/typescript-standards"
+    label: "Typescript Standards"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/retro-winamp-block"
+    label: "Winamp Block"
+    wordpress_slug: "retro-winamp-block"
+    npm_slug: null
+
+  - github: "10up/wp-framework"
+    label: "WP Framework"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/wp-hooks-generator"
+    label: "WP Hooks Documentor"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/wp_mock"
+    label: "WP Mock"
+    wordpress_slug: null
+    npm_slug: null
+
+  - github: "10up/wp-scaffold"
+    label: "WP Scaffold"
+    wordpress_slug: null
+    npm_slug: null
