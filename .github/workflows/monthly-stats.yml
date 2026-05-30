@@ -43,3 +43,23 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/${{ github.repository }}/pages/builds
+
+      - name: Notify Slack
+        if: ${{ secrets.SLACK_WEBHOOK_URL != '' }}
+        run: |
+          PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
+          curl -s -X POST \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"text\": \"📊 *Fueled OSS Metrics updated for ${PERIOD}*\",
+              \"blocks\": [
+                {
+                  \"type\": \"section\",
+                  \"text\": {
+                    \"type\": \"mrkdwn\",
+                    \"text\": \"📊 *Fueled OSS Metrics — ${PERIOD} data is now live*\nView the dashboard: https://fueled.github.io/oss-metrics/\"
+                  }
+                }
+              ]
+            }" \
+            "${{ secrets.SLACK_WEBHOOK_URL }}"
