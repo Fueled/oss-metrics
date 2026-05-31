@@ -334,11 +334,15 @@ function buildAggregateTimeseries(months) {
         return vals.length ? vals.reduce((a, b) => a + b, 0) : null;
       };
 
-      // Weighted-average rating (stays on 0–100 scale; converted to 0–5 at display time)
+      // Weighted-average rating when num_ratings is available; simple average as fallback
+      // (stays on 0–100 scale; converted to 0–5 at display time)
       const totalNumRatings = wpRepos.reduce((s, r) => s + (r.wordpress_stats.num_ratings ?? 0), 0);
+      const ratedRepos = wpRepos.filter(r => r.wordpress_stats.rating != null);
       const weightedRating = totalNumRatings > 0
         ? wpRepos.reduce((s, r) => s + (r.wordpress_stats.rating ?? 0) * (r.wordpress_stats.num_ratings ?? 0), 0) / totalNumRatings
-        : null;
+        : ratedRepos.length > 0
+          ? ratedRepos.reduce((s, r) => s + r.wordpress_stats.rating, 0) / ratedRepos.length
+          : null;
 
       wpStats = {
         active_installs: sumWp('active_installs'),
@@ -500,7 +504,7 @@ function renderPanel(timeseries) {
         <canvas id="gh-watchers"></canvas>
       </div>
       <div class="chart-box">
-        <h3>Releases This Month</h3>
+        <h3>Releases</h3>
         <canvas id="gh-releases"></canvas>
       </div>
       ${wpBlock}
@@ -548,7 +552,7 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn) {
     { key: 'forks',               label: 'Forks',    src: 'gh' },
     { key: 'watchers',            label: 'Watchers', src: 'gh' },
     { key: 'used_by_total',       label: 'Used By',  src: 'gh' },
-    { key: 'releases_this_month', label: 'Releases', src: 'gh' },
+    { key: 'releases_this_month', label: 'Releases',  src: 'gh' },
   ];
   const wpCols = hasWp ? [
     { key: 'active_installs', label: 'Active Installs', src: 'wp' },

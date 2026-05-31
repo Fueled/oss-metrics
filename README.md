@@ -1,6 +1,6 @@
-# fueled/oss-metrics
+# Fueled's Open Source Metrics
 
-A self-contained OSS metrics tracker for Fueled's public GitHub repos and their WordPress.org plugins. Runs monthly via GitHub Actions, stores data as JSON, and serves a static dashboard via GitHub Pages.
+A self-contained OSS metrics tracker for Fueled's public GitHub repos, their WordPress.org plugins, and npm packages. Runs monthly via GitHub Actions, stores data as JSON, and serves a static dashboard via GitHub Pages.
 
 **Dashboard:** https://fueled.github.io/oss-metrics/
 
@@ -9,9 +9,11 @@ A self-contained OSS metrics tracker for Fueled's public GitHub repos and their 
 ## How it works
 
 1. On the 1st of each month at 6AM UTC, a GitHub Action runs `scripts/collect_stats.py`
-2. The script fetches stars, forks, watchers, dependents, and release counts from the GitHub API, plus active installs, downloads, and ratings from the WordPress.org Plugins API
+2. The script fetches stars, forks, watchers, dependents, and release counts from the GitHub API, plus active installs, downloads, and ratings from the WordPress.org Plugins API, plus monthly downloads and dependents counts from the npm public APIs
 3. Results are written to `data/stats/YYYY-MM.json` and committed back to the repo
-4. The static dashboard at `index.html` loads those JSON files via `fetch()` and renders charts and tables
+4. GitHub Pages is triggered to rebuild the static dashboard
+5. A Slack notification is sent to `#oss-practice` once the dashboard is live (requires `SLACK_WEBHOOK_URL` repo secret)
+6. The static dashboard at `index.html` loads those JSON files via `fetch()` and renders charts and tables
 
 ---
 
@@ -30,7 +32,16 @@ This repo uses the org-level secret `BOT_PUBLIC_GITHUB_TOKEN` (a PAT with `publi
 3. Branch: `main`, folder: `/` (root)
 4. Save — GitHub will publish the dashboard at `https://fueled.github.io/oss-metrics/`
 
-### 3. Trigger the first run
+### 3. (Optional) Add the Slack webhook secret
+
+To receive a Slack notification in `#oss-practice` after each monthly run:
+
+1. Create an incoming webhook for the Fueled Slack workspace pointing at `#oss-practice`
+2. Add the webhook URL as a repo secret named `SLACK_WEBHOOK_URL`
+
+The workflow step is skipped gracefully if the secret is not set.
+
+### 4. Trigger the first run
 
 Go to **Actions → Monthly Stats Collection → Run workflow** to collect the first month of data immediately.
 
@@ -55,14 +66,17 @@ Output is written to `data/stats/YYYY-MM.json` and `data/stats/index.json` is up
 
 ## Adding repos
 
-Edit `data/config.yml`. Each entry needs:
+Edit `data/config.yml`. Each entry supports GitHub, WordPress.org, and npm tracking:
 
 ```yaml
 repos:
-  - github: "owner/repo"        # GitHub repo slug (exact casing)
+  - github: "owner/repo"              # GitHub repo slug (exact casing)
     label: "Human-readable name"
-    wordpress_slug: "plugin-slug"  # or null if not a WP plugin
+    wordpress_slug: "plugin-slug"     # WordPress.org plugin slug, or null
+    npm_slug: "@scope/package-name"   # npm package name, or null
 ```
+
+Set any slug to `null` if the project is not published on that platform.
 
 ---
 
@@ -80,6 +94,7 @@ oss-metrics/
 │       └── YYYY-MM.json        # One file per month (auto-committed)
 ├── scripts/
 │   ├── collect_stats.py        # Data collection script
+│   ├── backfill.py             # One-time backfill from XLSX spreadsheet
 │   └── requirements.txt
 ├── index.html                  # Self-contained dashboard (GitHub Pages root)
 └── README.md
@@ -113,10 +128,17 @@ Each monthly file (`data/stats/YYYY-MM.json`) looks like:
         "total_downloads": 250000,
         "rating": 92,
         "num_ratings": 340
+      },
+      "npm_stats": {
+        "monthly_downloads": 18500,
+        "dependents": 42
       }
     }
   ]
 }
 ```
 
-Any metric that fails to fetch is stored as `null` rather than aborting the run.
+- `wordpress_stats` is `null` for repos not published on WordPress.org
+- `npm_stats` is `null` for repos not published on npm
+- Any metric that fails to fetch is stored as `null` rather than aborting the run
+- WordPress ratings are stored on a 0–100 scale (matching the WordPress.org API) and converted to 0–5 for display on the dashboard
