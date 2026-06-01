@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '0 6 1 * *'   # 6:00 AM UTC on the 1st of every month
   workflow_dispatch:        # Allow manual trigger from the Actions UI
+    inputs:
+      period:
+        description: 'Month to collect (YYYY-MM). Defaults to previous calendar month.'
+        required: false
+        default: ''
 
 permissions:
   contents: write           # Required to commit data files back to the repo
@@ -25,8 +30,13 @@ jobs:
 
       - name: Collect stats
         env:
-          GH_TOKEN: ${{ secrets.BOT_PUBLIC_GITHUB_TOKEN }}
-        run: python scripts/collect_stats.py
+          GH_TOKEN: ${{ secrets.METRICS_GITHUB_TOKEN }}
+        run: |
+          if [ -n "${{ github.event.inputs.period }}" ]; then
+            python scripts/collect_stats.py --period "${{ github.event.inputs.period }}"
+          else
+            python scripts/collect_stats.py
+          fi
 
       - name: Commit data file
         run: |
