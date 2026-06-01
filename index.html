@@ -151,6 +151,25 @@
       letter-spacing: .06em;
       white-space: nowrap;
     }
+    .section-divider select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 12px;
+      padding: 3px 24px 3px 8px;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 7px center;
+      margin-left: 8px;
+    }
+    .section-divider select:hover, .section-divider select:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
     .section-divider::after {
       content: '';
       flex: 1;
@@ -509,7 +528,10 @@ function renderPanel(timeseries) {
       </div>
       ${wpBlock}
       ${npmBlock}
-      <div class="section-divider"><span>Monthly Data</span></div>
+      <div class="section-divider">
+        <span>Monthly Data</span>
+        <select id="year-select"></select>
+      </div>
       <div class="chart-box full-width table-wrapper">
         <div id="data-table"></div>
       </div>
@@ -539,7 +561,48 @@ function renderPanel(timeseries) {
     makeLineChart(document.getElementById('npm-dependents'), labels, [ds('Dependents',         npm('dependents'),        COLORS.npm_dep)]);
   }
 
-  renderTable(document.getElementById('data-table'), timeseries, hasWp, wpRating(), hasNpm, npm);
+  // ── Year select ──────────────────────────────────────────────
+  const yearSelect = document.getElementById('year-select');
+  const allYears = [...new Set(timeseries.map(t => t.period.slice(0, 4)))].sort().reverse();
+  const currentYear = String(new Date().getFullYear());
+  const initialYear = getYearFromParams() ?? (allYears.includes(currentYear) ? currentYear : allYears[0]);
+
+  // Populate options
+  const allOpt = document.createElement('option');
+  allOpt.value = '';
+  allOpt.textContent = 'All Years';
+  yearSelect.appendChild(allOpt);
+  allYears.forEach(y => {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    yearSelect.appendChild(opt);
+  });
+  yearSelect.value = initialYear;
+
+  // Capture frozen references for re-render
+  const _timeseries = timeseries;
+  const _hasWp = hasWp;
+  const _wpRating = wpRating();
+  const _hasNpm = hasNpm;
+  const _npm = npm;
+
+  function renderTableForYear() {
+    const yr = yearSelect.value;
+    const filtered = yr ? _timeseries.filter(t => t.period.startsWith(yr)) : _timeseries;
+    const filteredRating = yr ? _wpRating.filter((_, i) => _timeseries[i].period.startsWith(yr)) : _wpRating;
+    const filteredNpm = yr
+      ? key => _timeseries.filter(t => t.period.startsWith(yr)).map(t => t.repo?.npm_stats?.[key] ?? null)
+      : _npm;
+    renderTable(document.getElementById('data-table'), filtered, _hasWp, filteredRating, _hasNpm, filteredNpm);
+  }
+
+  renderTableForYear();
+
+  yearSelect.addEventListener('change', () => {
+    setYearParam(yearSelect.value || null);
+    renderTableForYear();
+  });
 }
 
 // ── Table renderer ────────────────────────────────────────────
@@ -635,15 +698,29 @@ function getSlugFromParams() {
   return (org && repo) ? `${org}/${repo}` : null;
 }
 
-function setParams(slug) {
-  if (!slug) {
-    history.pushState({}, '', location.pathname);
-  } else {
-    const slash = slug.indexOf('/');
-    const org  = slug.slice(0, slash);
-    const repo = slug.slice(slash + 1);
-    history.pushState({}, '', `?org=${encodeURIComponent(org)}&repo=${encodeURIComponent(repo)}`);
+function getYearFromParams() {
+  return new URLSearchParams(location.search).get('year') || null;
+}
+
+function buildParamString(slug, year) {
+  const p = new URLSearchParams();
+  if (slug) {
+    p.set('org',  slug.slice(0, slug.indexOf('/')));
+    p.set('repo', slug.slice(slug.indexOf('/') + 1));
   }
+  if (year) p.set('year', year);
+  const qs = p.toString();
+  return qs ? `?${qs}` : location.pathname;
+}
+
+function setParams(slug) {
+  const year = document.getElementById('year-select')?.value || null;
+  history.pushState({}, '', buildParamString(slug, year));
+}
+
+function setYearParam(year) {
+  const slug = getSlugFromParams();
+  history.pushState({}, '', buildParamString(slug, year));
 }
 
 function updateHint(slug) {
@@ -652,7 +729,8 @@ function updateHint(slug) {
     hint.innerHTML = '';
     return;
   }
-  const url = `${location.origin}${location.pathname}?org=${encodeURIComponent(slug.split('/')[0])}&repo=${encodeURIComponent(slug.split('/')[1])}`;
+  const year = document.getElementById('year-select')?.value || null;
+  const url  = location.origin + buildParamString(slug, year);
   hint.innerHTML = `🔗 <a href="${url}" title="Deep link to this project">${url}</a>`;
 }
 
@@ -711,6 +789,10 @@ async function main() {
         ? (latest.repos.find(r => r.github.toLowerCase() === slug.toLowerCase())?.github ?? '')
         : '';
       renderForSelection();
+      // Restore year select after panel re-renders
+      const yr = getYearFromParams();
+      const yrSelect = document.getElementById('year-select');
+      if (yrSelect) yrSelect.value = yr ?? yrSelect.options[1]?.value ?? '';
     });
 
   } catch (err) {
