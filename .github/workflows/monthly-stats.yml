@@ -48,13 +48,9 @@ jobs:
             cat /tmp/gh_rate.json >&2
             exit 1
           fi
-          python3 -c "
-import json
-with open('/tmp/gh_rate.json') as f:
-    d = json.load(f)
-r = d['rate']
-print(f'✓ Token valid — rate limit: {r[\"remaining\"]}/{r[\"limit\"]} remaining')
-"
+          REMAINING=$(python3 -c "import json; d=json.load(open('/tmp/gh_rate.json')); print(d['rate']['remaining'])")
+          LIMIT=$(python3 -c "import json; d=json.load(open('/tmp/gh_rate.json')); print(d['rate']['limit'])")
+          echo "✓ Token valid — rate limit: $REMAINING/$LIMIT remaining"
 
       - name: Collect stats
         env:
