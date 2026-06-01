@@ -10,8 +10,6 @@ A self-contained OSS metrics tracker for Fueled's public GitHub repos, their Wor
 
 **Dashboard:** https://fueled.github.io/oss-metrics/
 
----
-
 ## How it works
 
 1. On the 1st of each month at 6AM UTC, a GitHub Action runs `scripts/collect_stats.py`
@@ -20,8 +18,6 @@ A self-contained OSS metrics tracker for Fueled's public GitHub repos, their Wor
 4. GitHub Pages is triggered to rebuild the static dashboard
 5. A Slack notification is sent to `#oss-practice` once the dashboard is live (requires `SLACK_WEBHOOK_URL` repo secret)
 6. The static dashboard at `index.html` loads those JSON files via `fetch()` and renders charts and tables
-
----
 
 ## Setup
 
@@ -51,8 +47,6 @@ The workflow step is skipped gracefully if the secret is not set.
 
 Go to **Actions → Monthly Stats Collection → Run workflow** to collect the first month of data immediately.
 
----
-
 ## Running locally
 
 ```bash
@@ -68,8 +62,6 @@ GH_TOKEN=your_token python scripts/collect_stats.py --period 2025-03
 
 Output is written to `data/stats/YYYY-MM.json` and `data/stats/index.json` is updated.
 
----
-
 ## Adding repos
 
 Edit `data/config.yml`. Each entry supports GitHub, WordPress.org, and npm tracking:
@@ -83,8 +75,6 @@ repos:
 ```
 
 Set any slug to `null` if the project is not published on that platform.
-
----
 
 ## Repo structure
 
@@ -105,8 +95,6 @@ oss-metrics/
 ├── index.html                  # Self-contained dashboard (GitHub Pages root)
 └── README.md
 ```
-
----
 
 ## Data format
 
@@ -148,3 +136,7 @@ Each monthly file (`data/stats/YYYY-MM.json`) looks like:
 - `npm_stats` is `null` for repos not published on npm
 - Any metric that fails to fetch is stored as `null` rather than aborting the run
 - WordPress ratings are stored on a 0–100 scale (matching the WordPress.org API) and converted to 0–5 for display on the dashboard
+
+## Like what you see?
+
+[![Work with the 10up WordPress Practice at Fueled](https://github.com/10up/.github/blob/trunk/profile/10up-github-banner.jpg)](http://10up.com/contact/)
