@@ -61,7 +61,7 @@ SHEET_MAP = {
     "Simple Local Avatars":            ("10up/simple-local-avatars",                       "Simple Local Avatars",                   "simple-local-avatars"),
     "Simple Page Ordering":            ("10up/simple-page-ordering",                       "Simple Page Ordering",                   "simple-page-ordering"),
     "Simple Podcasting":               ("10up/simple-podcasting",                          "Simple Podcasting",                      "simple-podcasting"),
-    "ToolKit":                         ("10up/10up-toolkit",                               "10up Toolkit",                           None),
+    "ToolKit":                         ("10up/10up-toolkit",                               "10up Toolkit",                           None),  # npm_slug: 10up-toolkit
     "Typescript_Standards":            ("Fueled/typescript-standards",                     "Typescript Standards",                   None),
     "Winamp Block":                    ("10up/retro-winamp-block",                         "Winamp Block",                           "retro-winamp-block"),
     "WP_Framework":                    ("10up/wp-framework",                               "WP Framework",                           None),

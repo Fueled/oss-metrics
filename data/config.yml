@@ -192,7 +192,7 @@ repos:
   - github: "10up/10up-toolkit"
     label: "10up Toolkit"
     wordpress_slug: null
-    npm_slug: null
+    npm_slug: "10up-toolkit"
 
   - github: "Fueled/typescript-standards"
     label: "Typescript Standards"

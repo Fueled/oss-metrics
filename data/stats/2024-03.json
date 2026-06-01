@@ -625,7 +625,11 @@
         "used_by_packages": null,
         "used_by_total": 78
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 17504,
+        "dependents": 288700
+      }
     },
     {
       "github": "Fueled/typescript-standards",
