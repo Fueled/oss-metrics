@@ -1,6 +1,6 @@
 # Fueled's Open Source Metrics
 
-[![Monthly Stats Collection](https://github.com/Fueled/oss-metrics/actions/workflows/monthly-stats.yml/badge.svg)](https://github.com/Fueled/oss-metrics/actions/workflows/monthly-stats.yml) [![pages-build-deployment](https://github.com/Fueled/oss-metrics/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Fueled/oss-metrics/actions/workflows/pages/pages-build-deployment)
+[![Support Level](https://img.shields.io/badge/support-beta-blueviolet.svg)](#support-level) [![Monthly Stats Collection](https://github.com/Fueled/oss-metrics/actions/workflows/monthly-stats.yml/badge.svg)](https://github.com/Fueled/oss-metrics/actions/workflows/monthly-stats.yml) [![pages-build-deployment](https://github.com/Fueled/oss-metrics/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Fueled/oss-metrics/actions/workflows/pages/pages-build-deployment)
 
 > Automated monthly metrics for Fueled's open source projects.
 
@@ -136,6 +136,10 @@ Each monthly file (`data/stats/YYYY-MM.json`) looks like:
 - `npm_stats` is `null` for repos not published on npm
 - Any metric that fails to fetch is stored as `null` rather than aborting the run
 - WordPress ratings are stored on a 0–100 scale (matching the WordPress.org API) and converted to 0–5 for display on the dashboard
+
+## Support Level
+
+**Beta:** This project is quite new and we're not sure what our ongoing support level for this will be. Bug reports, feature requests, questions, and pull requests are welcome. If you like this project please let us know, but be cautious using this in a Production environment!
 
 ## Like what you see?
 
