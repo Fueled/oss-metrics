@@ -22,7 +22,7 @@ STATS_DIR = REPO_ROOT / "data" / "stats"
 INDEX_PATH = STATS_DIR / "index.json"
 
 GH_API      = "https://api.github.com"
-WP_API      = "https://api.wordpress.org/plugins/info/1.0/{slug}.json"
+WP_API      = "https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&request[slug]={slug}&request[fields][active_installs]=1&request[fields][downloaded]=1&request[fields][rating]=1&request[fields][num_ratings]=1"
 NPM_DL_API  = "https://api.npmjs.org/downloads/point/{start}:{end}/{package}"
 NPM_DEP_API = "https://registry.npmjs.org/-/v1/search?text=dependencies:{package}&size=0"
 

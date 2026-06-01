@@ -15,7 +15,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 100000,
         "total_downloads": 1959846,
         "rating": 94,
         "num_ratings": 15
@@ -35,7 +35,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 300,
         "total_downloads": 108733,
         "rating": 100,
         "num_ratings": 1
@@ -55,7 +55,7 @@
         "used_by_total": 0
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 80,
         "total_downloads": 965,
         "rating": 100,
         "num_ratings": 2
@@ -75,7 +75,7 @@
         "used_by_total": 2
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 5000,
         "total_downloads": 50982,
         "rating": 100,
         "num_ratings": 6
@@ -95,7 +95,7 @@
         "used_by_total": 2
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 1000,
         "total_downloads": 33160,
         "rating": 100,
         "num_ratings": 2
@@ -148,7 +148,7 @@
         "used_by_total": 0
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 2000,
         "total_downloads": 136477,
         "rating": 94,
         "num_ratings": 10
@@ -198,7 +198,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 10,
         "total_downloads": 7093,
         "rating": 100,
         "num_ratings": 2
@@ -218,8 +218,8 @@
         "used_by_total": 31
       },
       "wordpress_stats": {
-        "active_installs": null,
-        "total_downloads": 1072533,
+        "active_installs": 8000,
+        "total_downloads": 1073088,
         "rating": 82,
         "num_ratings": 29
       },
@@ -253,7 +253,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 100,
         "total_downloads": 2055,
         "rating": 0,
         "num_ratings": 0
@@ -471,7 +471,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 10,
         "total_downloads": 5366,
         "rating": 0,
         "num_ratings": 0
@@ -491,7 +491,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 3000,
         "total_downloads": 80542,
         "rating": 98,
         "num_ratings": 8
@@ -511,7 +511,7 @@
         "used_by_total": 0
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 2000,
         "total_downloads": 127309,
         "rating": 78,
         "num_ratings": 14
@@ -546,7 +546,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 100,
         "total_downloads": 7724,
         "rating": 0,
         "num_ratings": 0
@@ -566,7 +566,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 10000,
         "total_downloads": 1163237,
         "rating": 96,
         "num_ratings": 62
@@ -586,7 +586,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 40000,
         "total_downloads": 1982526,
         "rating": 94,
         "num_ratings": 78
@@ -606,7 +606,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 1000000,
         "total_downloads": 13015985,
         "rating": 98,
         "num_ratings": 78
@@ -626,7 +626,7 @@
         "used_by_total": 10
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 100000,
         "total_downloads": 2464515,
         "rating": 92,
         "num_ratings": 89
@@ -646,7 +646,7 @@
         "used_by_total": 1
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 100000,
         "total_downloads": 4283545,
         "rating": 94,
         "num_ratings": 131
@@ -666,8 +666,8 @@
         "used_by_total": 2
       },
       "wordpress_stats": {
-        "active_installs": null,
-        "total_downloads": 18689,
+        "active_installs": 100,
+        "total_downloads": 18700,
         "rating": 0,
         "num_ratings": 0
       },
@@ -716,7 +716,7 @@
         "used_by_total": 0
       },
       "wordpress_stats": {
-        "active_installs": null,
+        "active_installs": 200,
         "total_downloads": 8491,
         "rating": 100,
         "num_ratings": 1
