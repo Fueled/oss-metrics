@@ -226,16 +226,16 @@
       <div class="card-value" id="sum-repos">—</div>
     </div>
     <div class="card">
-      <div class="card-label">Latest Month</div>
-      <div class="card-value" id="sum-month">—</div>
-    </div>
-    <div class="card">
       <div class="card-label">Total Stars</div>
       <div class="card-value" id="sum-stars">—</div>
     </div>
     <div class="card">
       <div class="card-label">Total WP Installs</div>
       <div class="card-value" id="sum-installs">—</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Total Used By</div>
+      <div class="card-value" id="sum-usedby">—</div>
     </div>
   </div>
 
@@ -611,13 +611,15 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn) {
 function updateSummary(months) {
   const latest = months[months.length - 1];
   document.getElementById('sum-repos').textContent = latest.repos.length;
-  document.getElementById('sum-month').textContent = latest.period;
 
   const totalStars = latest.repos.reduce((s, r) => s + (r.github_stats?.stars ?? 0), 0);
   document.getElementById('sum-stars').textContent = fmt(totalStars);
 
   const totalInstalls = latest.repos.reduce((s, r) => s + (r.wordpress_stats?.active_installs ?? 0), 0);
   document.getElementById('sum-installs').textContent = totalInstalls > 0 ? fmt(totalInstalls) : '—';
+
+  const totalUsedBy = latest.repos.reduce((s, r) => s + (r.github_stats?.used_by_total ?? 0), 0);
+  document.getElementById('sum-usedby').textContent = totalUsedBy > 0 ? fmt(totalUsedBy) : '—';
 
   const collected = latest.collected_at
     ? new Date(latest.collected_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
