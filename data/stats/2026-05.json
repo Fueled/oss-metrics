@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-06-01T08:00:22Z",
+  "collected_at": "2026-06-01T14:58:59Z",
   "period": "2026-05",
   "repos": [
     {
@@ -16,7 +16,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 1959341,
+        "total_downloads": 1959846,
         "rating": 94,
         "num_ratings": 15
       },
@@ -36,7 +36,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 108710,
+        "total_downloads": 108733,
         "rating": 100,
         "num_ratings": 1
       },
@@ -56,7 +56,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 942,
+        "total_downloads": 965,
         "rating": 100,
         "num_ratings": 2
       },
@@ -76,7 +76,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 50959,
+        "total_downloads": 50982,
         "rating": 100,
         "num_ratings": 6
       },
@@ -117,7 +117,7 @@
       "wordpress_stats": null,
       "npm_stats": {
         "monthly_downloads": 27578,
-        "dependents": 483564
+        "dependents": 483738
       }
     },
     {
@@ -199,7 +199,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 7082,
+        "total_downloads": 7093,
         "rating": 100,
         "num_ratings": 2
       },
@@ -343,7 +343,7 @@
         "watchers": null,
         "forks": null,
         "releases_this_month": null,
-        "used_by_repositories": 3696,
+        "used_by_repositories": 3697,
         "used_by_packages": null,
         "used_by_total": null
       },
@@ -455,7 +455,7 @@
       "wordpress_stats": null,
       "npm_stats": {
         "monthly_downloads": 589,
-        "dependents": 402204
+        "dependents": 402462
       }
     },
     {
@@ -492,7 +492,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 80520,
+        "total_downloads": 80542,
         "rating": 98,
         "num_ratings": 8
       },
@@ -512,7 +512,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 127287,
+        "total_downloads": 127309,
         "rating": 78,
         "num_ratings": 14
       },
@@ -567,7 +567,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 1163050,
+        "total_downloads": 1163237,
         "rating": 96,
         "num_ratings": 62
       },
@@ -587,7 +587,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 1982267,
+        "total_downloads": 1982526,
         "rating": 94,
         "num_ratings": 78
       },
@@ -717,7 +717,7 @@
       },
       "wordpress_stats": {
         "active_installs": null,
-        "total_downloads": 8480,
+        "total_downloads": 8491,
         "rating": 100,
         "num_ratings": 1
       },
@@ -753,7 +753,7 @@
       "wordpress_stats": null,
       "npm_stats": {
         "monthly_downloads": 49,
-        "dependents": 316328
+        "dependents": 316462
       }
     },
     {
