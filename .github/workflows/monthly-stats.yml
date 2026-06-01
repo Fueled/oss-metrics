@@ -50,17 +50,51 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
+          STATS_FILE="data/stats/${PERIOD}.json"
+
+          # Extract headline numbers from the freshly written stats file
+          REPOS=$(python3 -c "
+          import json, sys
+          d = json.load(open('${STATS_FILE}'))
+          repos = d['repos']
+          stars    = sum(r['github_stats'].get('stars') or 0 for r in repos)
+          installs = sum((r.get('wordpress_stats') or {}).get('active_installs') or 0 for r in repos)
+          used_by  = sum(r['github_stats'].get('used_by_total') or 0 for r in repos)
+          print(f'{len(repos)}|{stars:,}|{installs:,}|{used_by:,}')
+          ")
+          REPO_COUNT=$(echo $REPOS | cut -d'|' -f1)
+          STARS=$(echo $REPOS | cut -d'|' -f2)
+          INSTALLS=$(echo $REPOS | cut -d'|' -f3)
+          USED_BY=$(echo $REPOS | cut -d'|' -f4)
+
           curl -s -X POST \
             -H "Content-Type: application/json" \
             -d "{
-              \"text\": \"📊 *Fueled OSS Metrics updated for ${PERIOD}*\",
+              \"text\": \"📊 Fueled OSS Metrics updated for ${PERIOD}\",
               \"blocks\": [
                 {
+                  \"type\": \"header\",
+                  \"text\": { \"type\": \"plain_text\", \"text\": \"📊 Fueled OSS Metrics — ${PERIOD}\" }
+                },
+                {
                   \"type\": \"section\",
-                  \"text\": {
-                    \"type\": \"mrkdwn\",
-                    \"text\": \"📊 *Fueled OSS Metrics — ${PERIOD} data is now live*\nView the dashboard: https://fueled.github.io/oss-metrics/\"
-                  }
+                  \"fields\": [
+                    { \"type\": \"mrkdwn\", \"text\": \"*Repos Tracked*\n${REPO_COUNT}\" },
+                    { \"type\": \"mrkdwn\", \"text\": \"*Total Stars*\n${STARS}\" },
+                    { \"type\": \"mrkdwn\", \"text\": \"*WP Active Installs*\n${INSTALLS}\" },
+                    { \"type\": \"mrkdwn\", \"text\": \"*Total Used By*\n${USED_BY}\" }
+                  ]
+                },
+                {
+                  \"type\": \"actions\",
+                  \"elements\": [
+                    {
+                      \"type\": \"button\",
+                      \"text\": { \"type\": \"plain_text\", \"text\": \"View Dashboard\" },
+                      \"url\": \"https://fueled.github.io/oss-metrics/\",
+                      \"style\": \"primary\"
+                    }
+                  ]
                 }
               ]
             }" \
