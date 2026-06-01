@@ -65,7 +65,7 @@ SHEET_MAP = {
     "Typescript_Standards":            ("Fueled/typescript-standards",                     "Typescript Standards",                   None),
     "Winamp Block":                    ("10up/retro-winamp-block",                         "Winamp Block",                           "retro-winamp-block"),
     "WP_Framework":                    ("10up/wp-framework",                               "WP Framework",                           None),
-    "WP_Hooks_Documentor":             ("10up/wp-hooks-generator",                         "WP Hooks Documentor",                    None),
+    "WP_Hooks_Documentor":             ("10up/wp-hooks-documentor",                        "WP Hooks Documentor",                    None),
     "WP_Mock":                         ("10up/wp_mock",                                    "WP Mock",                                None),
     "WP Scaffold":                     ("10up/wp-scaffold",                                "WP Scaffold",                            None),
 }

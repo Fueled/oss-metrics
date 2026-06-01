@@ -209,7 +209,7 @@ repos:
     wordpress_slug: null
     npm_slug: null
 
-  - github: "10up/wp-hooks-generator"
+  - github: "10up/wp-hooks-documentor"
     label: "WP Hooks Documentor"
     wordpress_slug: null
     npm_slug: "@10up/wp-hooks-documentor"
