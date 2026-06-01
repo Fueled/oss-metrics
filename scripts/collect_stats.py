@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Collect monthly OSS metrics from GitHub and WordPress.org APIs."""
 
+from __future__ import annotations
+
 import argparse
 import json
 import os
