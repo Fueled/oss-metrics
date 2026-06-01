@@ -103,51 +103,97 @@ jobs:
           PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
           STATS_FILE="data/stats/${PERIOD}.json"
 
-          # Extract all stats from the freshly written stats file
+          # Extract all stats with month-over-month deltas
           python3 -c "
           import json, os
+          from pathlib import Path
+          from datetime import datetime, timezone, timedelta
 
-          d     = json.load(open('${STATS_FILE}'))
-          repos = d['repos']
-          gh    = lambda k: sum(r['github_stats'].get(k) or 0 for r in repos)
-          wp_r  = [r['wordpress_stats'] for r in repos if r.get('wordpress_stats')]
-          npm_r = [r['npm_stats'] for r in repos if r.get('npm_stats')]
+          def load(path):
+              p = Path(path)
+              if not p.exists():
+                  return None
+              return json.loads(p.read_text())
 
-          # GitHub
-          repo_count = len(repos)
-          stars      = gh('stars')
-          watchers   = gh('watchers')
-          forks      = gh('forks')
-          used_by    = gh('used_by_total')
-          releases   = gh('releases_this_month')
+          def agg(repos, key, src='gh'):
+              if src == 'gh':
+                  return sum(r['github_stats'].get(key) or 0 for r in repos)
+              if src == 'wp':
+                  return sum((r.get('wordpress_stats') or {}).get(key) or 0
+                             for r in repos if r.get('wordpress_stats'))
+              if src == 'npm':
+                  return sum((r.get('npm_stats') or {}).get(key) or 0
+                             for r in repos if r.get('npm_stats'))
 
-          # WordPress
-          wp_installs   = sum(w.get('active_installs') or 0 for w in wp_r)
-          wp_downloads  = sum(w.get('total_downloads') or 0 for w in wp_r)
-          rated = [w.get('rating') for w in wp_r if w.get('rating') is not None]
-          wp_rating = round(sum(rated) / len(rated) / 20, 1) if rated else None
+          def prev_period(period):
+              y, m = int(period[:4]), int(period[5:7])
+              if m == 1:
+                  return f'{y-1}-12'
+              return f'{y}-{m-1:02d}'
 
-          # npm
-          npm_dl  = sum(n.get('monthly_downloads') or 0 for n in npm_r)
-          npm_dep = sum(n.get('dependents') or 0 for n in npm_r)
+          curr = load('${STATS_FILE}')
+          repos = curr['repos']
+
+          prev_file = 'data/stats/' + prev_period('${PERIOD}') + '.json'
+          prev = load(prev_file)
+          prev_repos = prev['repos'] if prev else []
 
           def f(n): return f'{n:,}'
 
+          def delta(now, before):
+              if before is None:
+                  return ''
+              d = now - before
+              if d == 0:
+                  return ' _(±0)_'
+              return f' _(+{f(d)})_' if d > 0 else f' _({f(d)})_'
+
+          def rating_avg(rlist):
+              rated = [r.get('rating') for r in rlist if r.get('rating') is not None]
+              return round(sum(rated) / len(rated) / 20, 1) if rated else None
+
+          # Current values
+          stars     = agg(repos, 'stars')
+          watchers  = agg(repos, 'watchers')
+          forks     = agg(repos, 'forks')
+          used_by   = agg(repos, 'used_by_total')
+          releases  = agg(repos, 'releases_this_month')
+          wp_inst   = agg(repos, 'active_installs', 'wp')
+          wp_dl     = agg(repos, 'total_downloads', 'wp')
+          wp_rating = rating_avg([r['wordpress_stats'] for r in repos if r.get('wordpress_stats')])
+          npm_dl    = agg(repos, 'monthly_downloads', 'npm')
+          npm_dep   = agg(repos, 'dependents', 'npm')
+
+          # Previous values
+          p_stars    = agg(prev_repos, 'stars')    if prev_repos else None
+          p_watchers = agg(prev_repos, 'watchers') if prev_repos else None
+          p_forks    = agg(prev_repos, 'forks')    if prev_repos else None
+          p_used_by  = agg(prev_repos, 'used_by_total') if prev_repos else None
+          p_releases = agg(prev_repos, 'releases_this_month') if prev_repos else None
+          p_wp_inst  = agg(prev_repos, 'active_installs', 'wp') if prev_repos else None
+          p_wp_dl    = agg(prev_repos, 'total_downloads', 'wp') if prev_repos else None
+          p_wp_r     = rating_avg([r['wordpress_stats'] for r in prev_repos if r.get('wordpress_stats')]) if prev_repos else None
+          p_npm_dl   = agg(prev_repos, 'monthly_downloads', 'npm') if prev_repos else None
+          p_npm_dep  = agg(prev_repos, 'dependents', 'npm') if prev_repos else None
+
+          wp_r_str = (f'{wp_rating} / 5' + (delta(wp_rating, p_wp_r) if p_wp_r else '')) if wp_rating else None
+
           gh_fields = [
-            f'*Repos Tracked*\n{repo_count}',
-            f'*Total Stars*\n{f(stars)}',
-            f'*Watchers*\n{f(watchers)}',
-            f'*Forks*\n{f(forks)}',
-            f'*Used By*\n{f(used_by)}',
-            f'*Releases This Month*\n{f(releases)}',
+            f'*Repos Tracked*\n{len(repos)}',
+            f'*Total Stars*\n{f(stars)}{delta(stars, p_stars)}',
+            f'*Watchers*\n{f(watchers)}{delta(watchers, p_watchers)}',
+            f'*Forks*\n{f(forks)}{delta(forks, p_forks)}',
+            f'*Used By*\n{f(used_by)}{delta(used_by, p_used_by)}',
+            f'*Releases This Month*\n{f(releases)}{delta(releases, p_releases)}',
           ]
           wp_fields = [
-            f'*WP Active Installs*\n{f(wp_installs)}',
-            f'*WP Total Downloads*\n{f(wp_downloads)}',
-          ] + ([f'*WP Avg Rating*\n{wp_rating} / 5'] if wp_rating else [])
+            f'*WP Active Installs*\n{f(wp_inst)}{delta(wp_inst, p_wp_inst)}',
+            f'*WP Total Downloads*\n{f(wp_dl)}{delta(wp_dl, p_wp_dl)}',
+          ] + ([f'*WP Avg Rating*\n{wp_r_str}'] if wp_r_str else [])
+          npm_r = [r['npm_stats'] for r in repos if r.get('npm_stats')]
           npm_fields = ([
-            f'*npm Downloads*\n{f(npm_dl)}',
-            f'*npm Dependents*\n{f(npm_dep)}',
+            f'*npm Downloads*\n{f(npm_dl)}{delta(npm_dl, p_npm_dl)}',
+            f'*npm Dependents*\n{f(npm_dep)}{delta(npm_dep, p_npm_dep)}',
           ] if npm_r else [])
 
           def fields_block(fields):
