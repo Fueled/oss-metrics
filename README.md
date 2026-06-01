@@ -1,6 +1,6 @@
 # Fueled's Open Source Metrics
 
-[![Support Level](https://img.shields.io/badge/support-beta-blueviolet.svg)](#support-level) [![Monthly Stats Collection](https://github.com/Fueled/oss-metrics/actions/workflows/monthly-stats.yml/badge.svg)](https://github.com/Fueled/oss-metrics/actions/workflows/monthly-stats.yml) [![pages-build-deployment](https://github.com/Fueled/oss-metrics/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Fueled/oss-metrics/actions/workflows/pages/pages-build-deployment)
+[![Support Level](https://img.shields.io/badge/support-beta-blueviolet.svg)](#support-level) [![MIT License](https://img.shields.io/github/license/Fueled/oss-metrics.svg)](https://github.com/Fueled/oss-metrics/blob/main/LICENSE.md) [![Monthly Stats Collection](https://github.com/Fueled/oss-metrics/actions/workflows/monthly-stats.yml/badge.svg)](https://github.com/Fueled/oss-metrics/actions/workflows/monthly-stats.yml) [![pages-build-deployment](https://github.com/Fueled/oss-metrics/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Fueled/oss-metrics/actions/workflows/pages/pages-build-deployment)
 
 > Automated monthly metrics for Fueled's open source projects.
 
