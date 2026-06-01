@@ -1,0 +1,762 @@
+{
+  "collected_at": "2025-11-01T00:00:00Z",
+  "period": "2025-11",
+  "repos": [
+    {
+      "github": "10up/Ad-Refresh-Control",
+      "label": "Ad Refresh Control",
+      "github_stats": {
+        "stars": 29,
+        "watchers": 50,
+        "forks": 8,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 350,
+        "total_downloads": 97103,
+        "rating": 100.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/ads-txt",
+      "label": "Ads.txt Manager",
+      "github_stats": {
+        "stars": 60,
+        "watchers": 54,
+        "forks": 28,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 100000,
+        "total_downloads": 1833276,
+        "rating": 92.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/maps-block-apple",
+      "label": "Apple Maps Block",
+      "github_stats": {
+        "stars": 73,
+        "watchers": 53,
+        "forks": 6,
+        "releases_this_month": 0,
+        "used_by_repositories": 2,
+        "used_by_packages": null,
+        "used_by_total": 2
+      },
+      "wordpress_stats": {
+        "active_installs": 1000,
+        "total_downloads": 30798,
+        "rating": 100.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/autoshare-for-twitter",
+      "label": "Autoshare for Twitter",
+      "github_stats": {
+        "stars": 126,
+        "watchers": 53,
+        "forks": 20,
+        "releases_this_month": 0,
+        "used_by_repositories": 2,
+        "used_by_packages": null,
+        "used_by_total": 2
+      },
+      "wordpress_stats": {
+        "active_installs": 5500,
+        "total_downloads": 40550,
+        "rating": 100.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/block-components",
+      "label": "Block Components",
+      "github_stats": {
+        "stars": 317,
+        "watchers": 59,
+        "forks": 50,
+        "releases_this_month": 0,
+        "used_by_repositories": 115,
+        "used_by_packages": null,
+        "used_by_total": 115
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/classifai",
+      "label": "ClassifAI",
+      "github_stats": {
+        "stars": 682,
+        "watchers": 76,
+        "forks": 64,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/convert-to-blocks",
+      "label": "Convert to Blocks",
+      "github_stats": {
+        "stars": 169,
+        "watchers": 54,
+        "forks": 17,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": {
+        "active_installs": 2000,
+        "total_downloads": 121664,
+        "rating": 94.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "Fueled/django-init",
+      "label": "Django Init",
+      "github_stats": {
+        "stars": 198,
+        "watchers": 26,
+        "forks": 49,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/distributor",
+      "label": "Distributor",
+      "github_stats": {
+        "stars": 687,
+        "watchers": 112,
+        "forks": 158,
+        "releases_this_month": 0,
+        "used_by_repositories": 11,
+        "used_by_packages": null,
+        "used_by_total": 11
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/eight-day-week",
+      "label": "Eight Day Week",
+      "github_stats": {
+        "stars": 89,
+        "watchers": 66,
+        "forks": 10,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 10,
+        "total_downloads": 6515,
+        "rating": 100.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/ElasticPress",
+      "label": "ElasticPress",
+      "github_stats": {
+        "stars": 1287,
+        "watchers": 92,
+        "forks": 321,
+        "releases_this_month": 2,
+        "used_by_repositories": 32,
+        "used_by_packages": null,
+        "used_by_total": 32
+      },
+      "wordpress_stats": {
+        "active_installs": 8000,
+        "total_downloads": 994630,
+        "rating": 82.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/ElasticPressLabs",
+      "label": "ElasticPress Labs",
+      "github_stats": {
+        "stars": 22,
+        "watchers": 48,
+        "forks": 0,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/Engineering-Best-Practices",
+      "label": "Engineering Best Practices",
+      "github_stats": {
+        "stars": 773,
+        "watchers": 135,
+        "forks": 204,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "Fueled/fastlane-plugin-fueled",
+      "label": "Fueled Fastlane Plugin",
+      "github_stats": {
+        "stars": 5,
+        "watchers": 5,
+        "forks": 4,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/embed-block-figma",
+      "label": "Figma Block",
+      "github_stats": {
+        "stars": 16,
+        "watchers": 36,
+        "forks": 1,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 100,
+        "total_downloads": 1608,
+        "rating": null,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/figma-to-wordpress-theme-json-exporter",
+      "label": "Figma to WordPress theme.json Exporter",
+      "github_stats": {
+        "stars": 70,
+        "watchers": 12,
+        "forks": 8,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/actions-wordpress",
+      "label": "GitHub Actions",
+      "github_stats": {
+        "stars": 451,
+        "watchers": 69,
+        "forks": 42,
+        "releases_this_month": 0,
+        "used_by_repositories": 14,
+        "used_by_packages": null,
+        "used_by_total": 14
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/action-wordpress-plugin-deploy",
+      "label": "GHA Plugin Deploy",
+      "github_stats": {
+        "stars": 614,
+        "watchers": 56,
+        "forks": 108,
+        "releases_this_month": 0,
+        "used_by_repositories": 3477,
+        "used_by_packages": null,
+        "used_by_total": 3477
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/action-wordpress-plugin-build-zip",
+      "label": "GHA Plugin Build",
+      "github_stats": {
+        "stars": 37,
+        "watchers": 15,
+        "forks": 9,
+        "releases_this_month": 0,
+        "used_by_repositories": 114,
+        "used_by_packages": null,
+        "used_by_total": 114
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/action-wordpress-plugin-asset-update",
+      "label": "GHA Assets Update",
+      "github_stats": {
+        "stars": 131,
+        "watchers": 49,
+        "forks": 35,
+        "releases_this_month": 0,
+        "used_by_repositories": 1355,
+        "used_by_packages": null,
+        "used_by_total": 1355
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/action-repo-automator",
+      "label": "GHA Repo Automator",
+      "github_stats": {
+        "stars": 21,
+        "watchers": 43,
+        "forks": 5,
+        "releases_this_month": 0,
+        "used_by_repositories": 10,
+        "used_by_packages": null,
+        "used_by_total": 10
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/wpcs-action",
+      "label": "GHA WPCS",
+      "github_stats": {
+        "stars": 64,
+        "watchers": 1,
+        "forks": 14,
+        "releases_this_month": 0,
+        "used_by_repositories": 266,
+        "used_by_packages": null,
+        "used_by_total": 266
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/wp-scanner-action",
+      "label": "GHA WP Scanner",
+      "github_stats": {
+        "stars": 23,
+        "watchers": 14,
+        "forks": 1,
+        "releases_this_month": 0,
+        "used_by_repositories": 2,
+        "used_by_packages": null,
+        "used_by_total": 2
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/gutenberg-best-practices",
+      "label": "Gutenberg Best Practices",
+      "github_stats": {
+        "stars": 106,
+        "watchers": 47,
+        "forks": 30,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/headstartwp",
+      "label": "HeadstartWP",
+      "github_stats": {
+        "stars": 194,
+        "watchers": 43,
+        "forks": 24,
+        "releases_this_month": 0,
+        "used_by_repositories": 7,
+        "used_by_packages": null,
+        "used_by_total": 7
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/insecure-content-warning",
+      "label": "Insecure Content Warning",
+      "github_stats": {
+        "stars": 36,
+        "watchers": 47,
+        "forks": 1,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 10,
+        "total_downloads": 5048,
+        "rating": null,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/insert-special-characters",
+      "label": "Insert Special Characters",
+      "github_stats": {
+        "stars": 74,
+        "watchers": 48,
+        "forks": 14,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 3500,
+        "total_downloads": 76584,
+        "rating": 98.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "Fueled/ios-utilities",
+      "label": "FueledUtils",
+      "github_stats": {
+        "stars": 11,
+        "watchers": 24,
+        "forks": 13,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/windows-azure-storage",
+      "label": "Microsoft Azure Storage",
+      "github_stats": {
+        "stars": 67,
+        "watchers": 74,
+        "forks": 48,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": {
+        "active_installs": 2000,
+        "total_downloads": 118073,
+        "rating": 78.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/Open-Source-Best-Practices",
+      "label": "Open Source Best Practices",
+      "github_stats": {
+        "stars": 50,
+        "watchers": 53,
+        "forks": 10,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/publisher-media-kit",
+      "label": "Publisher Media Kit",
+      "github_stats": {
+        "stars": 46,
+        "watchers": 49,
+        "forks": 7,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 100,
+        "total_downloads": 7239,
+        "rating": null,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/restricted-site-access",
+      "label": "Restricted Site Access",
+      "github_stats": {
+        "stars": 242,
+        "watchers": 90,
+        "forks": 46,
+        "releases_this_month": 1,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 20000,
+        "total_downloads": 1080834,
+        "rating": 96.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/safe-redirect-manager",
+      "label": "Safe Redirect Manager",
+      "github_stats": {
+        "stars": 320,
+        "watchers": 52,
+        "forks": 83,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 40000,
+        "total_downloads": 1872097,
+        "rating": 94.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/safe-svg",
+      "label": "Safe SVG",
+      "github_stats": {
+        "stars": 316,
+        "watchers": 48,
+        "forks": 36,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 1000000,
+        "total_downloads": 12368480,
+        "rating": 98.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/simple-local-avatars",
+      "label": "Simple Local Avatars",
+      "github_stats": {
+        "stars": 222,
+        "watchers": 52,
+        "forks": 43,
+        "releases_this_month": 0,
+        "used_by_repositories": 6,
+        "used_by_packages": null,
+        "used_by_total": 6
+      },
+      "wordpress_stats": {
+        "active_installs": 100000,
+        "total_downloads": 2278511,
+        "rating": 92.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/simple-page-ordering",
+      "label": "Simple Page Ordering",
+      "github_stats": {
+        "stars": 152,
+        "watchers": 65,
+        "forks": 21,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": {
+        "active_installs": 100000,
+        "total_downloads": 4130627,
+        "rating": 94.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/simple-podcasting",
+      "label": "Simple Podcasting",
+      "github_stats": {
+        "stars": 204,
+        "watchers": 54,
+        "forks": 30,
+        "releases_this_month": 0,
+        "used_by_repositories": 2,
+        "used_by_packages": null,
+        "used_by_total": 2
+      },
+      "wordpress_stats": {
+        "active_installs": 200,
+        "total_downloads": 17632,
+        "rating": null,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/10up-toolkit",
+      "label": "10up Toolkit",
+      "github_stats": {
+        "stars": 134,
+        "watchers": 52,
+        "forks": 22,
+        "releases_this_month": 0,
+        "used_by_repositories": 128,
+        "used_by_packages": null,
+        "used_by_total": 128
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "Fueled/typescript-standards",
+      "label": "Typescript Standards",
+      "github_stats": {
+        "stars": 1,
+        "watchers": 8,
+        "forks": 0,
+        "releases_this_month": 0,
+        "used_by_repositories": 1,
+        "used_by_packages": null,
+        "used_by_total": 1
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/retro-winamp-block",
+      "label": "Winamp Block",
+      "github_stats": {
+        "stars": 38,
+        "watchers": 49,
+        "forks": 7,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": {
+        "active_installs": 200,
+        "total_downloads": 7714,
+        "rating": 100.0,
+        "num_ratings": null
+      },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/wp-framework",
+      "label": "WP Framework",
+      "github_stats": {
+        "stars": 42,
+        "watchers": 14,
+        "forks": 3,
+        "releases_this_month": 1,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/wp-hooks-generator",
+      "label": "WP Hooks Documentor",
+      "github_stats": {
+        "stars": 11,
+        "watchers": 0,
+        "forks": 2,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/wp_mock",
+      "label": "WP Mock",
+      "github_stats": {
+        "stars": 706,
+        "watchers": 40,
+        "forks": 72,
+        "releases_this_month": 0,
+        "used_by_repositories": 2450,
+        "used_by_packages": null,
+        "used_by_total": 2450
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
+      "github": "10up/wp-scaffold",
+      "label": "WP Scaffold",
+      "github_stats": {
+        "stars": 273,
+        "watchers": 63,
+        "forks": 49,
+        "releases_this_month": 0,
+        "used_by_repositories": 0,
+        "used_by_packages": null,
+        "used_by_total": 0
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    }
+  ],
+  "note": "Interpolated: values averaged between 2025-10 and 2025-12 due to missing source data."
+}
