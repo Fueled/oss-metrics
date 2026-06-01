@@ -28,6 +28,32 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
+      - name: Validate GitHub token
+        env:
+          GH_TOKEN: ${{ secrets.METRICS_GITHUB_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "ERROR: METRICS_GITHUB_TOKEN secret is not set or is empty" >&2
+            exit 1
+          fi
+          echo "GH_TOKEN is set (length: ${#GH_TOKEN})"
+          RATE=$(curl -s -w "\n%{http_code}" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/rate_limit)
+          HTTP_CODE=$(echo "$RATE" | tail -1)
+          BODY=$(echo "$RATE" | head -1)
+          echo "GitHub API response code: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "ERROR: GitHub API returned $HTTP_CODE — token may be invalid or expired" >&2
+            echo "$BODY" >&2
+            exit 1
+          fi
+          REMAINING=$(echo "$BODY" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['rate']['remaining'])")
+          LIMIT=$(echo "$BODY" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['rate']['limit'])")
+          echo "✓ Token valid — rate limit: $REMAINING/$LIMIT remaining"
+
       - name: Collect stats
         env:
           GH_TOKEN: ${{ secrets.METRICS_GITHUB_TOKEN }}
