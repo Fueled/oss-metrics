@@ -6,6 +6,7 @@ import json
 import os
 import re
 import sys
+import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -18,10 +19,13 @@ CONFIG_PATH = REPO_ROOT / "data" / "config.yml"
 STATS_DIR = REPO_ROOT / "data" / "stats"
 INDEX_PATH = STATS_DIR / "index.json"
 
-GH_API     = "https://api.github.com"
-WP_API     = "https://api.wordpress.org/plugins/info/1.0/{slug}.json"
-NPM_DL_API = "https://api.npmjs.org/downloads/point/{start}:{end}/{package}"
+GH_API      = "https://api.github.com"
+WP_API      = "https://api.wordpress.org/plugins/info/1.0/{slug}.json"
+NPM_DL_API  = "https://api.npmjs.org/downloads/point/{start}:{end}/{package}"
 NPM_DEP_API = "https://registry.npmjs.org/-/v1/search?text=dependencies:{package}&size=0"
+
+MAX_RETRIES = 3
+RETRY_BACKOFF = 2  # seconds; doubles each attempt
 
 
 def gh_headers():
@@ -32,6 +36,38 @@ def gh_headers():
     else:
         print("WARNING: GH_TOKEN not set — rate limited to 60 req/hour", file=sys.stderr)
     return headers
+
+
+def fetch_with_retry(url: str, *, headers=None, params=None, timeout=30) -> requests.Response:
+    """GET a URL with exponential-backoff retries on transient errors (429, 5xx, timeout)."""
+    delay = RETRY_BACKOFF
+    last_exc = None
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            r = requests.get(url, headers=headers, params=params, timeout=timeout)
+            if r.status_code == 429 or r.status_code >= 500:
+                retry_after = int(r.headers.get("Retry-After", delay))
+                print(f"  WARN: HTTP {r.status_code} on attempt {attempt}/{MAX_RETRIES} "
+                      f"for {url} — retrying in {retry_after}s", file=sys.stderr)
+                time.sleep(retry_after)
+                delay *= 2
+                continue
+            return r
+        except requests.exceptions.Timeout as e:
+            last_exc = e
+            print(f"  WARN: Timeout on attempt {attempt}/{MAX_RETRIES} for {url} "
+                  f"— retrying in {delay}s", file=sys.stderr)
+            time.sleep(delay)
+            delay *= 2
+        except requests.exceptions.RequestException as e:
+            last_exc = e
+            print(f"  WARN: Request error on attempt {attempt}/{MAX_RETRIES} for {url}: {e} "
+                  f"— retrying in {delay}s", file=sys.stderr)
+            time.sleep(delay)
+            delay *= 2
+    raise requests.exceptions.RequestException(
+        f"Failed after {MAX_RETRIES} attempts: {last_exc}"
+    )
 
 
 def period_bounds(period: str):
@@ -55,7 +91,7 @@ def previous_month() -> str:
 def fetch_github_repo(owner_repo: str) -> dict | None:
     url = f"{GH_API}/repos/{owner_repo}"
     try:
-        r = requests.get(url, headers=gh_headers(), timeout=30)
+        r = fetch_with_retry(url, headers=gh_headers())
         r.raise_for_status()
         return r.json()
     except Exception as e:
@@ -70,9 +106,7 @@ def fetch_releases_count(owner_repo: str, period: str) -> int | None:
     page = 1
     try:
         while True:
-            r = requests.get(
-                url, headers=gh_headers(), params={"per_page": 100, "page": page}, timeout=30
-            )
+            r = fetch_with_retry(url, headers=gh_headers(), params={"per_page": 100, "page": page})
             r.raise_for_status()
             releases = r.json()
             if not releases:
@@ -105,7 +139,7 @@ def fetch_dependents(owner_repo: str) -> tuple[int | None, int | None]:
     if os.environ.get("GH_TOKEN"):
         headers["Authorization"] = f"Bearer {os.environ['GH_TOKEN']}"
     try:
-        r = requests.get(url, headers=headers, timeout=30)
+        r = fetch_with_retry(url, headers=headers)
         r.raise_for_status()
         soup = BeautifulSoup(r.text, "html.parser")
 
@@ -142,6 +176,10 @@ def fetch_dependents(owner_repo: str) -> tuple[int | None, int | None]:
                 elif "package" in parent_text and packages_count is None:
                     packages_count = val
 
+        if repos_count is None and packages_count is None:
+            print(f"  WARN: Could not parse dependents for {owner_repo} — "
+                  f"GitHub may have changed their markup. Storing null.", file=sys.stderr)
+
         return repos_count, packages_count
     except Exception as e:
         print(f"  ERROR scraping dependents for {owner_repo}: {e}", file=sys.stderr)
@@ -154,15 +192,13 @@ def fetch_npm(package: str, period: str) -> dict | None:
     start_str = start.strftime("%Y-%m-%d")
     end_str   = (end - timedelta(seconds=1)).strftime("%Y-%m-%d")
     try:
-        # Monthly downloads
         dl_url = NPM_DL_API.format(start=start_str, end=end_str, package=package)
-        dl_r = requests.get(dl_url, timeout=30)
+        dl_r = fetch_with_retry(dl_url)
         dl_r.raise_for_status()
         downloads = dl_r.json().get("downloads")
 
-        # Dependents count via registry search
         dep_url = NPM_DEP_API.format(package=package)
-        dep_r = requests.get(dep_url, timeout=30)
+        dep_r = fetch_with_retry(dep_url)
         dep_r.raise_for_status()
         dependents = dep_r.json().get("total")
 
@@ -178,7 +214,7 @@ def fetch_npm(package: str, period: str) -> dict | None:
 def fetch_wordpress(slug: str) -> dict | None:
     url = WP_API.format(slug=slug)
     try:
-        r = requests.get(url, timeout=30)
+        r = fetch_with_retry(url)
         r.raise_for_status()
         data = r.json()
         if not isinstance(data, dict):
