@@ -90,7 +90,10 @@
         "used_by_packages": null,
         "used_by_total": 65
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 18448
+      }
     },
     {
       "github": "10up/classifai",
@@ -390,7 +393,10 @@
         "used_by_packages": null,
         "used_by_total": null
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 273
+      }
     },
     {
       "github": "10up/insecure-content-warning",
@@ -622,7 +628,11 @@
         "used_by_packages": null,
         "used_by_total": 97
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 23686,
+        "dependents": 288701
+      }
     },
     {
       "github": "Fueled/typescript-standards",

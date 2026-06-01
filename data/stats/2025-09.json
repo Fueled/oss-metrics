@@ -90,7 +90,11 @@
         "used_by_packages": null,
         "used_by_total": 112
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 25978,
+        "dependents": 483851
+      }
     },
     {
       "github": "10up/classifai",
@@ -390,7 +394,11 @@
         "used_by_packages": null,
         "used_by_total": 0
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 599,
+        "dependents": 402588
+      }
     },
     {
       "github": "10up/insecure-content-warning",
@@ -622,7 +630,11 @@
         "used_by_packages": null,
         "used_by_total": 120
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 36976,
+        "dependents": 288701
+      }
     },
     {
       "github": "Fueled/typescript-standards",
@@ -683,7 +695,11 @@
         "used_by_packages": null,
         "used_by_total": 0
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 119,
+        "dependents": 316551
+      }
     },
     {
       "github": "10up/wp_mock",

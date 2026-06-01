@@ -104,7 +104,11 @@
         "used_by_packages": null,
         "used_by_total": 120
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 20405,
+        "dependents": 483851
+      }
     },
     {
       "github": "10up/classifai",
@@ -413,7 +417,10 @@
         "used_by_packages": null,
         "used_by_total": 7
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 655
+      }
     },
     {
       "github": "10up/insecure-content-warning",
@@ -691,7 +698,10 @@
         "used_by_packages": null,
         "used_by_total": 1
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 39
+      }
     },
     {
       "github": "10up/wp_mock",

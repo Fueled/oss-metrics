@@ -90,7 +90,11 @@
         "used_by_packages": null,
         "used_by_total": 54
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 14657,
+        "dependents": 483851
+      }
     },
     {
       "github": "10up/classifai",
@@ -621,7 +625,11 @@
         "used_by_packages": null,
         "used_by_total": 81
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 17898,
+        "dependents": 288701
+      }
     },
     {
       "github": "Fueled/typescript-standards",

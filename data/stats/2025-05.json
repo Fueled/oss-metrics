@@ -90,7 +90,11 @@
         "used_by_packages": null,
         "used_by_total": 108
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 34416,
+        "dependents": 483851
+      }
     },
     {
       "github": "10up/classifai",
@@ -390,7 +394,10 @@
         "used_by_packages": null,
         "used_by_total": 0
       },
-      "wordpress_stats": null
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 104
+      }
     },
     {
       "github": "10up/insecure-content-warning",
