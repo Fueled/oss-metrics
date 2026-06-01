@@ -612,7 +612,7 @@ function renderPanel(timeseries) {
     const filteredNpm = yr
       ? key => _timeseries.filter(t => t.period.startsWith(yr)).map(t => t.repo?.npm_stats?.[key] ?? null)
       : _npm;
-    renderTable(document.getElementById('data-table'), filtered, _hasWp, filteredRating, _hasNpm, filteredNpm);
+    renderTable(document.getElementById('data-table'), filtered, _hasWp, filteredRating, _hasNpm, filteredNpm, _timeseries);
   }
 
   renderTableForYear();
@@ -624,9 +624,13 @@ function renderPanel(timeseries) {
 }
 
 // ── Table renderer ────────────────────────────────────────────
-function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn) {
+function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn, allTimeseries) {
   const rows       = [...timeseries].reverse();
   const ratingRows = ratingData ? [...ratingData].reverse() : [];
+  // Build a lookup from period → entry for the full dataset so we can find
+  // the true previous month even when it falls outside the filtered view.
+  const fullByPeriod = {};
+  if (allTimeseries) allTimeseries.forEach(t => { fullByPeriod[t.period] = t; });
 
   const ghCols = [
     { key: 'stars',               label: 'Stars',    src: 'gh' },
@@ -653,8 +657,24 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn) {
   const npmDlRows  = hasNpm ? [...npmFn('monthly_downloads')].reverse() : [];
   const npmDepRows = hasNpm ? [...npmFn('dependents')].reverse() : [];
 
+  // Period-keyed maps for cross-year delta lookups (wp-rating and npm)
+  const ratingByPeriod = {};
+  const npmDlByPeriod  = {};
+  const npmDepByPeriod = {};
+  if (allTimeseries) {
+    allTimeseries.forEach(t => {
+      const r = t.repo?.wordpress_stats?.rating;
+      ratingByPeriod[t.period] = r != null ? Math.round(r / 20 * 10) / 10 : null;
+      npmDlByPeriod[t.period]  = t.repo?.npm_stats?.monthly_downloads ?? null;
+      npmDepByPeriod[t.period] = t.repo?.npm_stats?.dependents ?? null;
+    });
+  }
+
   const tbody = rows.map((row, i) => {
-    const prev   = rows[i + 1];
+    const [y, m] = row.period.split('-').map(Number);
+    const prevPeriod = m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, '0')}`;
+    // Use next row in filtered view, or look up the true previous month in full dataset
+    const prev = rows[i + 1] ?? (allTimeseries ? fullByPeriod[prevPeriod] : undefined);
     const ghNow  = row.repo?.github_stats    ?? {};
     const wpNow  = row.repo?.wordpress_stats ?? {};
     const ghPrev = prev?.repo?.github_stats    ?? {};
@@ -663,14 +683,15 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn) {
     const cells = allCols.flatMap(col => {
       let now, prv;
       if (col.src === 'wp-rating') {
-        now = ratingRows[i]     ?? null;
-        prv = ratingRows[i + 1] ?? null;
+        now = ratingRows[i] ?? null;
+        prv = ratingRows[i + 1] !== undefined ? ratingRows[i + 1] : (ratingByPeriod[prevPeriod] ?? null);
       } else if (col.src === 'wp') {
         now = wpNow[col.key];  prv = wpPrev?.[col.key];
       } else if (col.src === 'npm') {
         const arr = col.key === 'monthly_downloads' ? npmDlRows : npmDepRows;
-        now = arr[i]     ?? null;
-        prv = arr[i + 1] ?? null;
+        const map = col.key === 'monthly_downloads' ? npmDlByPeriod : npmDepByPeriod;
+        now = arr[i] ?? null;
+        prv = arr[i + 1] !== undefined ? arr[i + 1] : (map[prevPeriod] ?? null);
       } else {
         now = ghNow[col.key];  prv = ghPrev?.[col.key];
       }
