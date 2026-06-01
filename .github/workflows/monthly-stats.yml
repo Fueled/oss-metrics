@@ -52,50 +52,68 @@ jobs:
           PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
           STATS_FILE="data/stats/${PERIOD}.json"
 
-          # Extract headline numbers from the freshly written stats file
-          REPOS=$(python3 -c "
-          import json, sys
-          d = json.load(open('${STATS_FILE}'))
-          repos = d['repos']
-          stars    = sum(r['github_stats'].get('stars') or 0 for r in repos)
-          installs = sum((r.get('wordpress_stats') or {}).get('active_installs') or 0 for r in repos)
-          used_by  = sum(r['github_stats'].get('used_by_total') or 0 for r in repos)
-          print(f'{len(repos)}|{stars:,}|{installs:,}|{used_by:,}')
-          ")
-          REPO_COUNT=$(echo $REPOS | cut -d'|' -f1)
-          STARS=$(echo $REPOS | cut -d'|' -f2)
-          INSTALLS=$(echo $REPOS | cut -d'|' -f3)
-          USED_BY=$(echo $REPOS | cut -d'|' -f4)
+          # Extract all stats from the freshly written stats file
+          python3 -c "
+          import json, os
 
-          curl -s -X POST \
-            -H "Content-Type: application/json" \
-            -d "{
-              \"text\": \"📊 Fueled OSS Metrics updated for ${PERIOD}\",
-              \"blocks\": [
-                {
-                  \"type\": \"header\",
-                  \"text\": { \"type\": \"plain_text\", \"text\": \"📊 Fueled OSS Metrics — ${PERIOD}\" }
-                },
-                {
-                  \"type\": \"section\",
-                  \"fields\": [
-                    { \"type\": \"mrkdwn\", \"text\": \"*Repos Tracked*\n${REPO_COUNT}\" },
-                    { \"type\": \"mrkdwn\", \"text\": \"*Total Stars*\n${STARS}\" },
-                    { \"type\": \"mrkdwn\", \"text\": \"*WP Active Installs*\n${INSTALLS}\" },
-                    { \"type\": \"mrkdwn\", \"text\": \"*Total Used By*\n${USED_BY}\" }
-                  ]
-                },
-                {
-                  \"type\": \"actions\",
-                  \"elements\": [
-                    {
-                      \"type\": \"button\",
-                      \"text\": { \"type\": \"plain_text\", \"text\": \"View Dashboard\" },
-                      \"url\": \"https://fueled.github.io/oss-metrics/\",
-                      \"style\": \"primary\"
-                    }
-                  ]
-                }
-              ]
-            }" \
-            "$SLACK_WEBHOOK_URL"
+          d     = json.load(open('${STATS_FILE}'))
+          repos = d['repos']
+          gh    = lambda k: sum(r['github_stats'].get(k) or 0 for r in repos)
+          wp_r  = [r['wordpress_stats'] for r in repos if r.get('wordpress_stats')]
+          npm_r = [r['npm_stats'] for r in repos if r.get('npm_stats')]
+
+          # GitHub
+          repo_count = len(repos)
+          stars      = gh('stars')
+          watchers   = gh('watchers')
+          forks      = gh('forks')
+          used_by    = gh('used_by_total')
+          releases   = gh('releases_this_month')
+
+          # WordPress
+          wp_installs   = sum(w.get('active_installs') or 0 for w in wp_r)
+          wp_downloads  = sum(w.get('total_downloads') or 0 for w in wp_r)
+          rated = [w.get('rating') for w in wp_r if w.get('rating') is not None]
+          wp_rating = round(sum(rated) / len(rated) / 20, 1) if rated else None
+
+          # npm
+          npm_dl  = sum(n.get('monthly_downloads') or 0 for n in npm_r)
+          npm_dep = sum(n.get('dependents') or 0 for n in npm_r)
+
+          def f(n): return f'{n:,}'
+
+          gh_fields = [
+            f'*Repos Tracked*\n{repo_count}',
+            f'*Total Stars*\n{f(stars)}',
+            f'*Watchers*\n{f(watchers)}',
+            f'*Forks*\n{f(forks)}',
+            f'*Used By*\n{f(used_by)}',
+            f'*Releases This Month*\n{f(releases)}',
+          ]
+          wp_fields = [
+            f'*WP Active Installs*\n{f(wp_installs)}',
+            f'*WP Total Downloads*\n{f(wp_downloads)}',
+          ] + ([f'*WP Avg Rating*\n{wp_rating} / 5'] if wp_rating else [])
+          npm_fields = ([
+            f'*npm Downloads*\n{f(npm_dl)}',
+            f'*npm Dependents*\n{f(npm_dep)}',
+          ] if npm_r else [])
+
+          def fields_block(fields):
+            items = ','.join('{\"type\":\"mrkdwn\",\"text\":\"' + s.replace('\"','\\\\\"') + '\"}' for s in fields)
+            return '{\"type\":\"section\",\"fields\":[' + items + ']}'
+
+          # Split into groups of 10 (Slack max per section)
+          def chunks(lst, n):
+            for i in range(0, len(lst), n): yield lst[i:i+n]
+
+          all_fields = gh_fields + wp_fields + npm_fields
+          section_blocks = ','.join(fields_block(c) for c in chunks(all_fields, 10))
+
+          divider = '{\"type\":\"divider\"}'
+          button  = '{\"type\":\"actions\",\"elements\":[{\"type\":\"button\",\"text\":{\"type\":\"plain_text\",\"text\":\"View Dashboard\"},\"url\":\"https://fueled.github.io/oss-metrics/\",\"style\":\"primary\"}]}'
+          header  = '{\"type\":\"header\",\"text\":{\"type\":\"plain_text\",\"text\":\"📊 Fueled OSS Metrics — ${PERIOD}\"}}'
+
+          payload = '{\"text\":\"📊 Fueled OSS Metrics updated for ${PERIOD}\",\"blocks\":[' + ','.join([header, section_blocks, divider, button]) + ']}'
+          print(payload)
+          " | curl -s -X POST -H "Content-Type: application/json" -d @- "$SLACK_WEBHOOK_URL"
