@@ -414,14 +414,29 @@ function buildRepoTimeseries(months, githubSlug) {
 }
 
 // ── Chart builders ────────────────────────────────────────────
+const tooltipFormatter = {
+  callbacks: {
+    label: ctx => {
+      const v = ctx.parsed.y;
+      if (v == null) return null;
+      return ` ${ctx.dataset.label}: ${Number(v).toLocaleString()}`;
+    },
+  },
+};
+
 function makeLineChart(ctx, labels, datasets, scaleOverrides = {}) {
+  // Apply spanGaps to every dataset so missing months don't break the line
+  const filledDatasets = datasets.map(d => ({ ...d, spanGaps: true }));
   return trackChart(new Chart(ctx, {
     type: 'line',
-    data: { labels, datasets },
+    data: { labels, datasets: filledDatasets },
     options: {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
-      plugins: { legend: { display: false } },
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipFormatter,
+      },
       scales: {
         x: { grid: { color: '#21262d' } },
         y: { grid: { color: '#21262d' }, beginAtZero: false, ...scaleOverrides },
@@ -436,7 +451,10 @@ function makeBarChart(ctx, labels, dataset) {
     data: { labels, datasets: [dataset] },
     options: {
       responsive: true,
-      plugins: { legend: { display: false } },
+      plugins: {
+        legend: { display: false },
+        tooltip: tooltipFormatter,
+      },
       scales: {
         x: { grid: { color: '#21262d' } },
         y: { grid: { color: '#21262d' }, beginAtZero: true, ticks: { precision: 0 } },
