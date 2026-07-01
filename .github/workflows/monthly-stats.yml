@@ -215,21 +215,21 @@ jobs:
           wp_r_str = (f'{wp_rating} / 5' + (delta(wp_rating, p_wp_r) if p_wp_r else '')) if wp_rating else None
 
           gh_fields = [
-            f'*Repos Tracked*\n{len(repos)}',
-            f'*Total Stars*\n{f(stars)}{delta(stars, p_stars)}',
-            f'*Watchers*\n{f(watchers)}{delta(watchers, p_watchers)}',
-            f'*Forks*\n{f(forks)}{delta(forks, p_forks)}',
-            f'*Used By*\n{f(used_by)}{delta(used_by, p_used_by)}',
-            f'*Releases This Month*\n{f(releases)}{delta(releases, p_releases)}',
+            f'Repos Tracked\n{len(repos)}',
+            f'Total Stars\n{f(stars)}{delta(stars, p_stars)}',
+            f'Watchers\n{f(watchers)}{delta(watchers, p_watchers)}',
+            f'Forks\n{f(forks)}{delta(forks, p_forks)}',
+            f'Used By\n{f(used_by)}{delta(used_by, p_used_by)}',
+            f'Releases This Month\n{f(releases)}{delta(releases, p_releases)}',
           ]
           wp_fields = [
-            f'*WP Active Installs*\n{f(wp_inst)}{delta(wp_inst, p_wp_inst)}',
-            f'*WP Total Downloads*\n{f(wp_dl)}{delta(wp_dl, p_wp_dl)}',
-          ] + ([f'*WP Avg Rating*\n{wp_r_str}'] if wp_r_str else [])
+            f'WP Active Installs\n{f(wp_inst)}{delta(wp_inst, p_wp_inst)}',
+            f'WP Total Downloads\n{f(wp_dl)}{delta(wp_dl, p_wp_dl)}',
+          ] + ([f'WP Avg Rating\n{wp_r_str}'] if wp_r_str else [])
           npm_r = [r['npm_stats'] for r in repos if r.get('npm_stats')]
           npm_fields = ([
-            f'*npm Downloads*\n{f(npm_dl)}{delta(npm_dl, p_npm_dl)}',
-            f'*npm Dependents*\n{f(npm_dep)}{delta(npm_dep, p_npm_dep)}',
+            f'npm Downloads\n{f(npm_dl)}{delta(npm_dl, p_npm_dl)}',
+            f'npm Dependents\n{f(npm_dep)}{delta(npm_dep, p_npm_dep)}',
           ] if npm_r else [])
 
           def fields_block(fields):
