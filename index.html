@@ -226,6 +226,22 @@
       border-radius: 8px;
       color: var(--red);
     }
+    /* ── Footer ── */
+    #site-footer {
+      margin-top: 48px;
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    #site-footer a { color: var(--muted); }
+    #site-footer a:hover { color: var(--text); }
+    #site-footer .sep { opacity: 0.4; }
   </style>
 </head>
 <body>
@@ -845,5 +861,12 @@ async function main() {
 
 main();
 </script>
+<footer id="site-footer">
+  <a href="https://github.com/Fueled/oss-metrics" target="_blank" rel="noopener">GitHub Repo</a>
+  <span class="sep">|</span>
+  <a href="https://github.com/Fueled/oss-metrics/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT License</a>
+  <span class="sep">|</span>
+  <span>Made by <a href="https://fueled.com/" target="_blank" rel="noopener">Fueled</a> (formerly <a href="https://fueled.com/blog/fueled-renewed-brand/" target="_blank" rel="noopener">10up</a>)</span>
+</footer>
 </body>
 </html>
