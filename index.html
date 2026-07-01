@@ -725,24 +725,47 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn, al
     </table>`;
 }
 
-// ── Summary cards (always show aggregate totals) ──────────────
-function updateSummary(months) {
+// ── Summary cards ─────────────────────────────────────────────
+function updateSummary(months, slug) {
   const latest = months[months.length - 1];
-  document.getElementById('sum-repos').textContent = latest.repos.length;
-
-  const totalStars = latest.repos.reduce((s, r) => s + (r.github_stats?.stars ?? 0), 0);
-  document.getElementById('sum-stars').textContent = fmt(totalStars);
-
-  const totalInstalls = latest.repos.reduce((s, r) => s + (r.wordpress_stats?.active_installs ?? 0), 0);
-  document.getElementById('sum-installs').textContent = totalInstalls > 0 ? fmt(totalInstalls) : '—';
-
-  const totalUsedBy = latest.repos.reduce((s, r) => s + (r.github_stats?.used_by_total ?? 0), 0);
-  document.getElementById('sum-usedby').textContent = totalUsedBy > 0 ? fmt(totalUsedBy) : '—';
 
   const collected = latest.collected_at
     ? new Date(latest.collected_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     : latest.period;
   document.getElementById('last-updated').textContent = `Last updated: ${collected}`;
+
+  if (slug) {
+    const repo = latest.repos.find(r => r.github.toLowerCase() === slug.toLowerCase());
+    const gs = repo?.github_stats ?? {};
+    const ws = repo?.wordpress_stats;
+
+    document.querySelector('#sum-repos').closest('.card').querySelector('.card-label').textContent = 'Stars';
+    document.getElementById('sum-repos').textContent = fmt(gs.stars) ?? '—';
+
+    document.querySelector('#sum-stars').closest('.card').querySelector('.card-label').textContent = 'Forks';
+    document.getElementById('sum-stars').textContent = fmt(gs.forks) ?? '—';
+
+    document.querySelector('#sum-installs').closest('.card').querySelector('.card-label').textContent = 'WP Active Installs';
+    document.getElementById('sum-installs').textContent = ws?.active_installs != null ? fmt(ws.active_installs) : '—';
+
+    document.querySelector('#sum-usedby').closest('.card').querySelector('.card-label').textContent = 'Used By';
+    document.getElementById('sum-usedby').textContent = gs.used_by_total != null ? fmt(gs.used_by_total) : '—';
+  } else {
+    document.querySelector('#sum-repos').closest('.card').querySelector('.card-label').textContent = 'Repos Tracked';
+    document.getElementById('sum-repos').textContent = latest.repos.length;
+
+    document.querySelector('#sum-stars').closest('.card').querySelector('.card-label').textContent = 'Total Stars';
+    const totalStars = latest.repos.reduce((s, r) => s + (r.github_stats?.stars ?? 0), 0);
+    document.getElementById('sum-stars').textContent = fmt(totalStars);
+
+    document.querySelector('#sum-installs').closest('.card').querySelector('.card-label').textContent = 'Total WP Installs';
+    const totalInstalls = latest.repos.reduce((s, r) => s + (r.wordpress_stats?.active_installs ?? 0), 0);
+    document.getElementById('sum-installs').textContent = totalInstalls > 0 ? fmt(totalInstalls) : '—';
+
+    document.querySelector('#sum-usedby').closest('.card').querySelector('.card-label').textContent = 'Total Used By';
+    const totalUsedBy = latest.repos.reduce((s, r) => s + (r.github_stats?.used_by_total ?? 0), 0);
+    document.getElementById('sum-usedby').textContent = totalUsedBy > 0 ? fmt(totalUsedBy) : '—';
+  }
 }
 
 // ── URL param helpers ─────────────────────────────────────────
@@ -799,7 +822,7 @@ async function main() {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('app').style.display = 'block';
 
-    updateSummary(months);
+    updateSummary(months, null);
 
     // Populate dropdown
     const select = document.getElementById('repo-select');
@@ -826,6 +849,7 @@ async function main() {
         ? buildRepoTimeseries(months, slug)
         : buildAggregateTimeseries(months);
       renderPanel(timeseries);
+      updateSummary(months, slug);
       updateHint(slug);
     }
 
