@@ -745,11 +745,23 @@ function updateSummary(months, slug) {
     document.querySelector('#sum-stars').closest('.card').querySelector('.card-label').textContent = 'Forks';
     document.getElementById('sum-stars').textContent = fmt(gs.forks) ?? '—';
 
-    document.querySelector('#sum-installs').closest('.card').querySelector('.card-label').textContent = 'WP Active Installs';
-    document.getElementById('sum-installs').textContent = ws?.active_installs != null ? fmt(ws.active_installs) : '—';
-
-    document.querySelector('#sum-usedby').closest('.card').querySelector('.card-label').textContent = 'Used By';
-    document.getElementById('sum-usedby').textContent = gs.used_by_total != null ? fmt(gs.used_by_total) : '—';
+    const ns = repo?.npm_stats;
+    if (ws) {
+      document.querySelector('#sum-installs').closest('.card').querySelector('.card-label').textContent = 'WP Active Installs';
+      document.getElementById('sum-installs').textContent = ws.active_installs != null ? fmt(ws.active_installs) : '—';
+      document.querySelector('#sum-usedby').closest('.card').querySelector('.card-label').textContent = 'WP Total Downloads';
+      document.getElementById('sum-usedby').textContent = ws.total_downloads != null ? fmt(ws.total_downloads) : '—';
+    } else if (ns) {
+      document.querySelector('#sum-installs').closest('.card').querySelector('.card-label').textContent = 'npm Monthly Downloads';
+      document.getElementById('sum-installs').textContent = ns.monthly_downloads != null ? fmt(ns.monthly_downloads) : '—';
+      document.querySelector('#sum-usedby').closest('.card').querySelector('.card-label').textContent = 'Used By';
+      document.getElementById('sum-usedby').textContent = gs.used_by_total != null ? fmt(gs.used_by_total) : '—';
+    } else {
+      document.querySelector('#sum-installs').closest('.card').querySelector('.card-label').textContent = 'WP Active Installs';
+      document.getElementById('sum-installs').textContent = '—';
+      document.querySelector('#sum-usedby').closest('.card').querySelector('.card-label').textContent = 'Used By';
+      document.getElementById('sum-usedby').textContent = gs.used_by_total != null ? fmt(gs.used_by_total) : '—';
+    }
   } else {
     document.querySelector('#sum-repos').closest('.card').querySelector('.card-label').textContent = 'Repos Tracked';
     document.getElementById('sum-repos').textContent = latest.repos.length;
