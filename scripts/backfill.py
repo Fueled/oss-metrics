@@ -68,6 +68,7 @@ SHEET_MAP = {
     "WP_Hooks_Documentor":             ("10up/wp-hooks-documentor",                        "WP Hooks Documentor",                    None),
     "WP_Mock":                         ("10up/wp_mock",                                    "WP Mock",                                None),
     "WP Scaffold":                     ("10up/wp-scaffold",                                "WP Scaffold",                            None),
+    "WP_Compat_Validation_Tool":       ("10up/wp-compat-validation-tool",                  "WP Compat Validation Tool",              None),
 }
 
 # Row indices within each project sheet (0-based, row 0 = header)

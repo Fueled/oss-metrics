@@ -223,3 +223,8 @@ repos:
     label: "WP Scaffold"
     wordpress_slug: null
     npm_slug: null
+
+  - github: "10up/wp-compat-validation-tool"
+    label: "WP Compat Validation Tool"
+    wordpress_slug: null
+    npm_slug: null
