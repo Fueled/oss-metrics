@@ -39,6 +39,11 @@ repos:
     wordpress_slug: "convert-to-blocks"
     npm_slug: null
 
+  - github: "10up/cypress-wp-utils"
+    label: "Cypress WP Utils"
+    wordpress_slug: null
+    npm_slug: "@10up/cypress-wp-utils"
+
   - github: "Fueled/django-init"
     label: "Django Init"
     wordpress_slug: null
