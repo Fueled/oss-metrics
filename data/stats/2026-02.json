@@ -144,6 +144,24 @@
       }
     },
     {
+      "github": "10up/cypress-wp-utils",
+      "label": "Cypress WP Utils",
+      "github_stats": {
+        "stars": 24,
+        "watchers": 40,
+        "forks": 8,
+        "releases_this_month": 0,
+        "used_by_repositories": 65,
+        "used_by_packages": 0,
+        "used_by_total": 65
+      },
+      "wordpress_stats": null,
+      "npm_stats": {
+        "monthly_downloads": 2742,
+        "dependents": 350792
+      }
+    },
+    {
       "github": "Fueled/django-init",
       "label": "Django Init",
       "github_stats": {
