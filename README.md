@@ -14,10 +14,11 @@ A self-contained OSS metrics tracker for Fueled's public GitHub repos, their Wor
 
 1. On the 1st of each month at 6AM UTC, a GitHub Action runs `scripts/collect_stats.py`
 2. The script fetches stars, forks, watchers, dependents, and release counts from the GitHub API, plus active installs, downloads, and ratings from the WordPress.org Plugins API, plus monthly downloads and dependents counts from the npm public APIs
-3. Results are written to `data/stats/YYYY-MM.json` and committed back to the repo
-4. GitHub Pages is triggered to rebuild the static dashboard
-5. A Slack notification is sent to `#oss-practice` once the dashboard is live (requires `SLACK_WEBHOOK_URL` repo secret)
-6. The static dashboard at `index.html` loads those JSON files via `fetch()` and renders charts and tables
+3. It also fetches each repo's full weekly star history via GitHub's [privacy-safe star history endpoint](https://docs.github.com/en/rest/activity/starring) (`GET /repos/{owner}/{repo}/stargazers/history`) — aggregate weekly counts back to the repo's creation, with no stargazer identities exposed
+4. Results are written to `data/stats/YYYY-MM.json` (monthly snapshot) and `data/star-history/<owner>__<repo>.json` (all-time weekly history), then committed back to the repo
+5. GitHub Pages is triggered to rebuild the static dashboard
+6. A Slack notification is sent to `#oss-practice` once the dashboard is live (requires `SLACK_WEBHOOK_URL` repo secret)
+7. The static dashboard at `index.html` loads those JSON files via `fetch()` and renders charts and tables
 
 ## Setup
 
@@ -60,7 +61,7 @@ GH_TOKEN=your_token python scripts/collect_stats.py
 GH_TOKEN=your_token python scripts/collect_stats.py --period 2025-03
 ```
 
-Output is written to `data/stats/YYYY-MM.json` and `data/stats/index.json` is updated.
+Output is written to `data/stats/YYYY-MM.json` and `data/stats/index.json` is updated, plus each repo's all-time weekly star history is written to `data/star-history/<owner>__<repo>.json`.
 
 ## Adding repos
 
@@ -85,9 +86,11 @@ oss-metrics/
 │       └── monthly-stats.yml   # Cron + manual trigger
 ├── data/
 │   ├── config.yml              # Which repos to track
-│   └── stats/
-│       ├── index.json          # Manifest of available monthly files
-│       └── YYYY-MM.json        # One file per month (auto-committed)
+│   ├── stats/
+│   │   ├── index.json          # Manifest of available monthly files
+│   │   └── YYYY-MM.json        # One file per month (auto-committed)
+│   └── star-history/
+│       └── <owner>__<repo>.json  # All-time weekly star history per repo (auto-committed)
 ├── scripts/
 │   ├── collect_stats.py        # Data collection script
 │   ├── backfill.py             # One-time backfill from XLSX spreadsheet
@@ -136,6 +139,23 @@ Each monthly file (`data/stats/YYYY-MM.json`) looks like:
 - `npm_stats` is `null` for repos not published on npm
 - Any metric that fails to fetch is stored as `null` rather than aborting the run
 - WordPress ratings are stored on a 0–100 scale (matching the WordPress.org API) and converted to 0–5 for display on the dashboard
+
+Each star-history file (`data/star-history/<owner>__<repo>.json`) looks like:
+
+```json
+{
+  "github": "10up/distributor",
+  "collected_at": "2026-09-01T06:12:03Z",
+  "weekly": [
+    { "week_start": "2018-05-06", "stars": 12 },
+    { "week_start": "2018-05-13", "stars": 7 }
+  ]
+}
+```
+
+- `weekly` is ordered oldest-first and covers the repo's full history (weeks with no new stars are included as `0`)
+- `stars` is the number of stars gained *that week*, not a running total — the dashboard sums these into a cumulative series client-side
+- Because unstars aren't reflected in this endpoint, a repo's cumulative sum can drift slightly above its current `stargazers_count`
 
 ## Support Level
 

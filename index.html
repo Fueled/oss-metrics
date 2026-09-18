@@ -303,9 +303,11 @@ const COLORS = {
 };
 
 const DATA_BASE = './data/stats/';
+const STAR_HISTORY_BASE = './data/star-history/';
 
 // ── State ────────────────────────────────────────────────────
 let activeCharts = [];
+let starHistoryGen = 0;
 
 // ── Helpers ──────────────────────────────────────────────────
 const fmt = n => n == null ? '—' : Number(n).toLocaleString();
@@ -348,6 +350,50 @@ async function loadAll() {
       return r.json();
     })
   ));
+}
+
+function starHistoryFilename(slug) {
+  return slug.toLowerCase().replace('/', '__') + '.json';
+}
+
+async function fetchStarHistory(slug) {
+  try {
+    const r = await fetch(STAR_HISTORY_BASE + starHistoryFilename(slug));
+    if (!r.ok) return null;
+    return await r.json();
+  } catch {
+    return null;
+  }
+}
+
+// Loads and renders the all-time weekly star-history chart for the given repo.
+// Uses GitHub's privacy-safe star history endpoint (weekly totals, no stargazer
+// identities), fetched separately from the monthly snapshot files since it
+// covers a repo's full history rather than one point in time per month.
+async function loadStarHistoryChart(slug) {
+  const myGen = ++starHistoryGen;
+  const data = await fetchStarHistory(slug);
+  if (myGen !== starHistoryGen) return; // a newer repo/view was selected meanwhile
+
+  const box = document.getElementById('star-history-box');
+  const canvas = document.getElementById('gh-star-history-chart');
+  if (!box || !canvas) return; // panel moved on (e.g. back to "All Projects")
+
+  if (!data || !Array.isArray(data.weekly) || data.weekly.length === 0) {
+    box.style.display = 'none';
+    return;
+  }
+
+  box.style.display = '';
+  let cumulative = 0;
+  const labels = [];
+  const values = [];
+  data.weekly.forEach(w => {
+    cumulative += w.stars;
+    labels.push(w.week_start);
+    values.push(cumulative);
+  });
+  makeLineChart(canvas, labels, [ds('Cumulative Stars', values, COLORS.stars)]);
 }
 
 // ── Timeseries builders ───────────────────────────────────────
@@ -494,7 +540,7 @@ function ds(label, data, color) {
 }
 
 // ── Panel renderer ────────────────────────────────────────────
-function renderPanel(timeseries) {
+function renderPanel(timeseries, slug) {
   destroyCharts();
   const container = document.getElementById('panel-container');
 
@@ -537,11 +583,17 @@ function renderPanel(timeseries) {
       <canvas id="npm-dependents"></canvas>
     </div>` : '';
 
+  const starHistoryBlock = slug ? `
+    <div class="chart-box full-width" id="star-history-box" style="display:none">
+      <h3>Star History — All-Time, Weekly (Privacy-Safe API)</h3>
+      <canvas id="gh-star-history-chart"></canvas>
+    </div>` : '';
+
   container.innerHTML = `
     <div class="panel-grid">
       <div class="section-divider"><span>GitHub</span></div>
       <div class="chart-box">
-        <h3>Stars</h3>
+        <h3>Stars (Monthly Snapshot)</h3>
         <canvas id="gh-stars"></canvas>
       </div>
       <div class="chart-box">
@@ -560,6 +612,7 @@ function renderPanel(timeseries) {
         <h3>Releases</h3>
         <canvas id="gh-releases"></canvas>
       </div>
+      ${starHistoryBlock}
       ${wpBlock}
       ${npmBlock}
       <div class="section-divider">
@@ -860,9 +913,14 @@ async function main() {
       const timeseries = slug
         ? buildRepoTimeseries(months, slug)
         : buildAggregateTimeseries(months);
-      renderPanel(timeseries);
+      renderPanel(timeseries, slug);
       updateSummary(months, slug);
       updateHint(slug);
+      if (slug) {
+        loadStarHistoryChart(slug);
+      } else {
+        starHistoryGen++; // invalidate any in-flight fetch from a repo view
+      }
     }
 
     renderForSelection();
