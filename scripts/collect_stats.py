@@ -20,6 +20,7 @@ REPO_ROOT = Path(__file__).parent.parent
 CONFIG_PATH = REPO_ROOT / "data" / "config.yml"
 STATS_DIR = REPO_ROOT / "data" / "stats"
 INDEX_PATH = STATS_DIR / "index.json"
+STAR_HISTORY_DIR = REPO_ROOT / "data" / "star-history"
 
 GH_API      = "https://api.github.com"
 WP_API      = "https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&request[slug]={slug}&request[fields][active_installs]=1&request[fields][downloaded]=1&request[fields][rating]=1&request[fields][num_ratings]=1"
@@ -99,6 +100,57 @@ def fetch_github_repo(owner_repo: str) -> dict | None:
     except Exception as e:
         print(f"  ERROR fetching repo {owner_repo}: {e}", file=sys.stderr)
         return None
+
+
+def star_history_filename(owner_repo: str) -> str:
+    return owner_repo.lower().replace("/", "__") + ".json"
+
+
+def fetch_star_history(owner_repo: str) -> list[dict] | None:
+    """Fetch weekly star counts via GET /repos/{owner}/{repo}/stargazers/history.
+
+    Unlike the stargazers listing endpoint (restricted to admins/collaborators
+    since July 2026), this works unauthenticated for public repos and never
+    exposes stargazer identities — it only returns aggregate weekly totals
+    back to the repo's creation week. Returns weeks oldest-first as
+    [{"week_start": "YYYY-MM-DD", "stars": int}, ...], or None on failure.
+    """
+    url = f"{GH_API}/repos/{owner_repo}/stargazers/history"
+    weeks = []
+    page = 1
+    try:
+        while page <= 100:  # API caps pagination at 100 pages
+            r = fetch_with_retry(url, headers=gh_headers(), params={"per_page": 30, "page": page})
+            r.raise_for_status()
+            batch = r.json()
+            if not batch:
+                break
+            weeks.extend(batch)
+            if len(batch) < 30:
+                break
+            page += 1
+        weeks.reverse()  # API returns most-recent-first; we want oldest-first
+        return [
+            {
+                "week_start": datetime.fromtimestamp(w["week"], tz=timezone.utc).strftime("%Y-%m-%d"),
+                "stars": w["total"],
+            }
+            for w in weeks
+        ]
+    except Exception as e:
+        print(f"  ERROR fetching star history for {owner_repo}: {e}", file=sys.stderr)
+        return None
+
+
+def write_star_history(owner_repo: str, weekly: list[dict]):
+    STAR_HISTORY_DIR.mkdir(parents=True, exist_ok=True)
+    out_file = STAR_HISTORY_DIR / star_history_filename(owner_repo)
+    payload = {
+        "github": owner_repo,
+        "collected_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "weekly": weekly,
+    }
+    out_file.write_text(json.dumps(payload, indent=2) + "\n")
 
 
 def fetch_releases_count(owner_repo: str, period: str) -> int | None:
@@ -273,6 +325,12 @@ def collect_repo(repo_cfg: dict, period: str) -> dict:
           f"Watchers: {github_stats['watchers']}")
     print(f"  Releases this month: {github_stats['releases_this_month']}")
     print(f"  Used by repos: {dep_repos}  packages: {dep_pkgs}")
+
+    weekly_stars = fetch_star_history(owner_repo)
+    if weekly_stars is not None:
+        write_star_history(owner_repo, weekly_stars)
+        print(f"  Star history: {len(weekly_stars)} weeks "
+              f"({sum(w['stars'] for w in weekly_stars)} stars total)")
 
     wp_stats = None
     if wp_slug:

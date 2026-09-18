@@ -68,7 +68,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/stats/
+          mkdir -p data/star-history
+          git add data/stats/ data/star-history/
           git diff --cached --quiet || git commit -m "chore: add stats for $(date +'%Y-%m')"
           git push
 
