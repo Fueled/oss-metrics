@@ -31,6 +31,25 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
+      - name: Determine period
+        env:
+          PERIOD_INPUT: ${{ github.event.inputs.period }}
+        run: |
+          # Single source of truth for which month is being collected: the
+          # explicit workflow input if given, else the previous calendar month
+          # (matching collect_stats.py's own default). Exported via $GITHUB_ENV
+          # so every later step — including both Slack notifications, even if
+          # a failure happens before "Commit data file" runs — agrees on it,
+          # instead of each step separately recomputing (and disagreeing on)
+          # the wall-clock month.
+          if [ -n "$PERIOD_INPUT" ]; then
+            PERIOD="$PERIOD_INPUT"
+          else
+            PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
+          fi
+          echo "PERIOD=$PERIOD" >> "$GITHUB_ENV"
+          echo "Collecting period: $PERIOD"
+
       - name: Validate GitHub token
         env:
           GH_TOKEN: ${{ secrets.METRICS_GITHUB_TOKEN }}
@@ -58,12 +77,7 @@ jobs:
       - name: Collect stats
         env:
           GH_TOKEN: ${{ secrets.METRICS_GITHUB_TOKEN }}
-        run: |
-          if [ -n "${{ github.event.inputs.period }}" ]; then
-            python scripts/collect_stats.py --period "${{ github.event.inputs.period }}"
-          else
-            python scripts/collect_stats.py
-          fi
+        run: python scripts/collect_stats.py --period "$PERIOD"
 
       - name: Commit data file
         env:
@@ -80,15 +94,6 @@ jobs:
 
           # main requires changes via PR (org ruleset), so push to a
           # per-run branch and open + merge a PR instead of pushing directly.
-          # Mirror collect_stats.py's own period logic (explicit --period input,
-          # else previous calendar month) rather than the wall-clock month, so a
-          # manual backfill's branch/commit/PR are labeled with the period that
-          # was actually collected.
-          if [ -n "${{ github.event.inputs.period }}" ]; then
-            PERIOD="${{ github.event.inputs.period }}"
-          else
-            PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
-          fi
           BRANCH="automated/stats-${PERIOD}-${{ github.run_id }}"
           git checkout -b "$BRANCH"
           git commit -m "chore: add stats for ${PERIOD}"
@@ -139,7 +144,6 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
           curl -s -X POST \
             -H "Content-Type: application/json" \
             -d "{
@@ -165,7 +169,6 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
           STATS_FILE="data/stats/${PERIOD}.json"
 
           # Extract all stats with month-over-month deltas
