@@ -11,7 +11,8 @@ on:
         default: ''
 
 permissions:
-  contents: write           # Required to commit data files back to the repo
+  contents: write           # Required to push the stats branch
+  pull-requests: write      # Required to open and merge the stats PR (main requires PRs)
   pages: write              # Required to trigger a GitHub Pages build
   id-token: write           # Required by the Pages deployment API
 
@@ -29,6 +30,25 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
+
+      - name: Determine period
+        env:
+          PERIOD_INPUT: ${{ github.event.inputs.period }}
+        run: |
+          # Single source of truth for which month is being collected: the
+          # explicit workflow input if given, else the previous calendar month
+          # (matching collect_stats.py's own default). Exported via $GITHUB_ENV
+          # so every later step — including both Slack notifications, even if
+          # a failure happens before "Commit data file" runs — agrees on it,
+          # instead of each step separately recomputing (and disagreeing on)
+          # the wall-clock month.
+          if [ -n "$PERIOD_INPUT" ]; then
+            PERIOD="$PERIOD_INPUT"
+          else
+            PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
+          fi
+          echo "PERIOD=$PERIOD" >> "$GITHUB_ENV"
+          echo "Collecting period: $PERIOD"
 
       - name: Validate GitHub token
         env:
@@ -57,21 +77,34 @@ jobs:
       - name: Collect stats
         env:
           GH_TOKEN: ${{ secrets.METRICS_GITHUB_TOKEN }}
-        run: |
-          if [ -n "${{ github.event.inputs.period }}" ]; then
-            python scripts/collect_stats.py --period "${{ github.event.inputs.period }}"
-          else
-            python scripts/collect_stats.py
-          fi
+        run: python scripts/collect_stats.py --period "$PERIOD"
 
       - name: Commit data file
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p data/star-history
           git add data/stats/ data/star-history/
-          git diff --cached --quiet || git commit -m "chore: add stats for $(date +'%Y-%m')"
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          # main requires changes via PR (org ruleset), so push to a
+          # per-run branch and open + merge a PR instead of pushing directly.
+          BRANCH="automated/stats-${PERIOD}-${{ github.run_id }}"
+          git checkout -b "$BRANCH"
+          git commit -m "chore: add stats for ${PERIOD}"
+          git push -u origin "$BRANCH"
+
+          PR_URL=$(gh pr create \
+            --title "chore: add stats for ${PERIOD}" \
+            --body "Automated monthly stats collection. Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --base main --head "$BRANCH")
+          echo "Opened $PR_URL"
+          gh pr merge "$BRANCH" --squash --delete-branch
 
       - name: Trigger GitHub Pages build and wait for completion
         run: |
@@ -111,7 +144,6 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
           curl -s -X POST \
             -H "Content-Type: application/json" \
             -d "{
@@ -137,7 +169,6 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
           STATS_FILE="data/stats/${PERIOD}.json"
 
           # Extract all stats with month-over-month deltas

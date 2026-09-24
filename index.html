@@ -338,18 +338,41 @@ function trackChart(chart) {
 }
 
 // ── Data loading ─────────────────────────────────────────────
+// Retries a JSON fetch a couple times with backoff so one transient blip
+// (of ~90 concurrent requests for the monthly files) doesn't have to succeed
+// on the first try.
+async function fetchJsonWithRetry(url, retries = 2, delayMs = 500) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const r = await fetch(url);
+      if (r.ok) return await r.json();
+      if (attempt === retries) throw new Error(`${url} responded ${r.status}`);
+    } catch (err) {
+      if (attempt === retries) throw err;
+    }
+    await new Promise(resolve => setTimeout(resolve, delayMs * (attempt + 1)));
+  }
+}
+
 async function loadAll() {
-  const idxResp = await fetch(DATA_BASE + 'index.json');
-  if (!idxResp.ok) throw new Error(`Failed to load index.json (${idxResp.status})`);
-  const { files } = await idxResp.json();
+  const idx = await fetchJsonWithRetry(DATA_BASE + 'index.json');
+  const { files } = idx;
   if (!files || files.length === 0) throw new Error('No data files found in index.json');
   const sorted = [...files].sort();
-  return Promise.all(sorted.map(f =>
-    fetch(DATA_BASE + f).then(r => {
-      if (!r.ok) throw new Error(`Failed to load ${f}`);
-      return r.json();
-    })
-  ));
+
+  const results = await Promise.allSettled(sorted.map(f => fetchJsonWithRetry(DATA_BASE + f)));
+  const months = [];
+  const failed = [];
+  results.forEach((res, i) => {
+    if (res.status === 'fulfilled') months.push(res.value);
+    else failed.push(sorted[i]);
+  });
+  if (failed.length > 0) {
+    // A single month failing even after retries shouldn't blank the whole dashboard.
+    console.warn(`Skipped ${failed.length} month file(s) after retries: ${failed.join(', ')}`);
+  }
+  if (months.length === 0) throw new Error('Failed to load any monthly data files');
+  return months;
 }
 
 function starHistoryFilename(slug) {
@@ -742,8 +765,12 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn, al
   const tbody = rows.map((row, i) => {
     const [y, m] = row.period.split('-').map(Number);
     const prevPeriod = m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, '0')}`;
-    // Use next row in filtered view, or look up the true previous month in full dataset
-    const prev = rows[i + 1] ?? (allTimeseries ? fullByPeriod[prevPeriod] : undefined);
+    // rows[i + 1] is only the true previous month if the periods are actually
+    // adjacent — a skipped/missing month (e.g. a fetch failure) would otherwise
+    // silently diff against a non-adjacent month. Fall back to a period lookup
+    // in the full dataset, and to null if that month is missing entirely.
+    const adjacentPrevRow = rows[i + 1]?.period === prevPeriod ? rows[i + 1] : undefined;
+    const prev = adjacentPrevRow ?? (allTimeseries ? fullByPeriod[prevPeriod] : undefined);
     const ghNow  = row.repo?.github_stats    ?? {};
     const wpNow  = row.repo?.wordpress_stats ?? {};
     const ghPrev = prev?.repo?.github_stats    ?? {};
@@ -753,14 +780,14 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn, al
       let now, prv;
       if (col.src === 'wp-rating') {
         now = ratingRows[i] ?? null;
-        prv = ratingRows[i + 1] !== undefined ? ratingRows[i + 1] : (ratingByPeriod[prevPeriod] ?? null);
+        prv = adjacentPrevRow ? ratingRows[i + 1] : (ratingByPeriod[prevPeriod] ?? null);
       } else if (col.src === 'wp') {
         now = wpNow[col.key];  prv = wpPrev?.[col.key];
       } else if (col.src === 'npm') {
         const arr = col.key === 'monthly_downloads' ? npmDlRows : npmDepRows;
         const map = col.key === 'monthly_downloads' ? npmDlByPeriod : npmDepByPeriod;
         now = arr[i] ?? null;
-        prv = arr[i + 1] !== undefined ? arr[i + 1] : (map[prevPeriod] ?? null);
+        prv = adjacentPrevRow ? arr[i + 1] : (map[prevPeriod] ?? null);
       } else {
         now = ghNow[col.key];  prv = ghPrev?.[col.key];
       }
