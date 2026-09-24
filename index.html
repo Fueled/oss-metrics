@@ -765,8 +765,12 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn, al
   const tbody = rows.map((row, i) => {
     const [y, m] = row.period.split('-').map(Number);
     const prevPeriod = m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, '0')}`;
-    // Use next row in filtered view, or look up the true previous month in full dataset
-    const prev = rows[i + 1] ?? (allTimeseries ? fullByPeriod[prevPeriod] : undefined);
+    // rows[i + 1] is only the true previous month if the periods are actually
+    // adjacent — a skipped/missing month (e.g. a fetch failure) would otherwise
+    // silently diff against a non-adjacent month. Fall back to a period lookup
+    // in the full dataset, and to null if that month is missing entirely.
+    const adjacentPrevRow = rows[i + 1]?.period === prevPeriod ? rows[i + 1] : undefined;
+    const prev = adjacentPrevRow ?? (allTimeseries ? fullByPeriod[prevPeriod] : undefined);
     const ghNow  = row.repo?.github_stats    ?? {};
     const wpNow  = row.repo?.wordpress_stats ?? {};
     const ghPrev = prev?.repo?.github_stats    ?? {};
@@ -776,14 +780,14 @@ function renderTable(container, timeseries, hasWp, ratingData, hasNpm, npmFn, al
       let now, prv;
       if (col.src === 'wp-rating') {
         now = ratingRows[i] ?? null;
-        prv = ratingRows[i + 1] !== undefined ? ratingRows[i + 1] : (ratingByPeriod[prevPeriod] ?? null);
+        prv = adjacentPrevRow ? ratingRows[i + 1] : (ratingByPeriod[prevPeriod] ?? null);
       } else if (col.src === 'wp') {
         now = wpNow[col.key];  prv = wpPrev?.[col.key];
       } else if (col.src === 'npm') {
         const arr = col.key === 'monthly_downloads' ? npmDlRows : npmDepRows;
         const map = col.key === 'monthly_downloads' ? npmDlByPeriod : npmDepByPeriod;
         now = arr[i] ?? null;
-        prv = arr[i + 1] !== undefined ? arr[i + 1] : (map[prevPeriod] ?? null);
+        prv = adjacentPrevRow ? arr[i + 1] : (map[prevPeriod] ?? null);
       } else {
         now = ghNow[col.key];  prv = ghPrev?.[col.key];
       }
