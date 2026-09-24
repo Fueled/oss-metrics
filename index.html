@@ -338,18 +338,41 @@ function trackChart(chart) {
 }
 
 // ── Data loading ─────────────────────────────────────────────
+// Retries a JSON fetch a couple times with backoff so one transient blip
+// (of ~90 concurrent requests for the monthly files) doesn't have to succeed
+// on the first try.
+async function fetchJsonWithRetry(url, retries = 2, delayMs = 500) {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const r = await fetch(url);
+      if (r.ok) return await r.json();
+      if (attempt === retries) throw new Error(`${url} responded ${r.status}`);
+    } catch (err) {
+      if (attempt === retries) throw err;
+    }
+    await new Promise(resolve => setTimeout(resolve, delayMs * (attempt + 1)));
+  }
+}
+
 async function loadAll() {
-  const idxResp = await fetch(DATA_BASE + 'index.json');
-  if (!idxResp.ok) throw new Error(`Failed to load index.json (${idxResp.status})`);
-  const { files } = await idxResp.json();
+  const idx = await fetchJsonWithRetry(DATA_BASE + 'index.json');
+  const { files } = idx;
   if (!files || files.length === 0) throw new Error('No data files found in index.json');
   const sorted = [...files].sort();
-  return Promise.all(sorted.map(f =>
-    fetch(DATA_BASE + f).then(r => {
-      if (!r.ok) throw new Error(`Failed to load ${f}`);
-      return r.json();
-    })
-  ));
+
+  const results = await Promise.allSettled(sorted.map(f => fetchJsonWithRetry(DATA_BASE + f)));
+  const months = [];
+  const failed = [];
+  results.forEach((res, i) => {
+    if (res.status === 'fulfilled') months.push(res.value);
+    else failed.push(sorted[i]);
+  });
+  if (failed.length > 0) {
+    // A single month failing even after retries shouldn't blank the whole dashboard.
+    console.warn(`Skipped ${failed.length} month file(s) after retries: ${failed.join(', ')}`);
+  }
+  if (months.length === 0) throw new Error('Failed to load any monthly data files');
+  return months;
 }
 
 function starHistoryFilename(slug) {
