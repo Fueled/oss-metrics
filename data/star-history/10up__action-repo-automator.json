@@ -1,0 +1,886 @@
+{
+  "github": "10up/action-repo-automator",
+  "collected_at": "2026-09-24T14:40:04Z",
+  "weekly": [
+    {
+      "week_start": "2022-07-10",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-07-17",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-07-24",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-07-31",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-08-07",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-08-14",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-08-21",
+      "stars": 1
+    },
+    {
+      "week_start": "2022-08-28",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-09-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-09-11",
+      "stars": 1
+    },
+    {
+      "week_start": "2022-09-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-09-25",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-10-02",
+      "stars": 2
+    },
+    {
+      "week_start": "2022-10-09",
+      "stars": 1
+    },
+    {
+      "week_start": "2022-10-16",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-10-23",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-10-30",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-11-06",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-11-13",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-11-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-11-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-12-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-12-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-12-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2022-12-25",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-01-01",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-01-08",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-01-15",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-01-22",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-01-29",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-02-05",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-02-12",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-02-19",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-02-26",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-03-05",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-03-12",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-03-19",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-03-26",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-04-02",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-04-09",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-04-16",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-04-23",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-04-30",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-05-07",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-05-14",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-05-21",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-05-28",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-06-04",
+      "stars": 1
+    },
+    {
+      "week_start": "2023-06-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-06-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-06-25",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-07-02",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-07-09",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-07-16",
+      "stars": 1
+    },
+    {
+      "week_start": "2023-07-23",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-07-30",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-08-06",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-08-13",
+      "stars": 3
+    },
+    {
+      "week_start": "2023-08-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-08-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-09-03",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-09-10",
+      "stars": 1
+    },
+    {
+      "week_start": "2023-09-17",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-09-24",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-10-01",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-10-08",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-10-15",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-10-22",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-10-29",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-11-05",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-11-12",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-11-19",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-11-26",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-12-03",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-12-10",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-12-17",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-12-24",
+      "stars": 0
+    },
+    {
+      "week_start": "2023-12-31",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-01-07",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-01-14",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-01-21",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-01-28",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-02-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-02-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-02-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-02-25",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-03-03",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-03-10",
+      "stars": 1
+    },
+    {
+      "week_start": "2024-03-17",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-03-24",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-03-31",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-04-07",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-04-14",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-04-21",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-04-28",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-05-05",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-05-12",
+      "stars": 1
+    },
+    {
+      "week_start": "2024-05-19",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-05-26",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-06-02",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-06-09",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-06-16",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-06-23",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-06-30",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-07-07",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-07-14",
+      "stars": 1
+    },
+    {
+      "week_start": "2024-07-21",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-07-28",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-08-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-08-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-08-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-08-25",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-09-01",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-09-08",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-09-15",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-09-22",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-09-29",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-10-06",
+      "stars": 1
+    },
+    {
+      "week_start": "2024-10-13",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-10-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-10-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-11-03",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-11-10",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-11-17",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-11-24",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-12-01",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-12-08",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-12-15",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-12-22",
+      "stars": 0
+    },
+    {
+      "week_start": "2024-12-29",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-01-05",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-01-12",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-01-19",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-01-26",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-02-02",
+      "stars": 1
+    },
+    {
+      "week_start": "2025-02-09",
+      "stars": 1
+    },
+    {
+      "week_start": "2025-02-16",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-02-23",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-03-02",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-03-09",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-03-16",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-03-23",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-03-30",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-04-06",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-04-13",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-04-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-04-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-05-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-05-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-05-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-05-25",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-06-01",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-06-08",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-06-15",
+      "stars": 1
+    },
+    {
+      "week_start": "2025-06-22",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-06-29",
+      "stars": 1
+    },
+    {
+      "week_start": "2025-07-06",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-07-13",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-07-20",
+      "stars": 1
+    },
+    {
+      "week_start": "2025-07-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-08-03",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-08-10",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-08-17",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-08-24",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-08-31",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-09-07",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-09-14",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-09-21",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-09-28",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-10-05",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-10-12",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-10-19",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-10-26",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-11-02",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-11-09",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-11-16",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-11-23",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-11-30",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-12-07",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-12-14",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-12-21",
+      "stars": 0
+    },
+    {
+      "week_start": "2025-12-28",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-01-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-01-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-01-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-01-25",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-02-01",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-02-08",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-02-15",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-02-22",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-03-01",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-03-08",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-03-15",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-03-22",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-03-29",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-04-05",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-04-12",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-04-19",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-04-26",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-05-03",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-05-10",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-05-17",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-05-24",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-05-31",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-06-07",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-06-14",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-06-21",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-06-28",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-07-05",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-07-12",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-07-19",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-07-26",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-08-02",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-08-09",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-08-16",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-08-23",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-08-30",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-06",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-13",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-20",
+      "stars": 0
+    }
+  ]
+}
