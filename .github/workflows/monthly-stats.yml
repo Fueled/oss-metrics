@@ -80,7 +80,15 @@ jobs:
 
           # main requires changes via PR (org ruleset), so push to a
           # per-run branch and open + merge a PR instead of pushing directly.
-          PERIOD="$(date +'%Y-%m')"
+          # Mirror collect_stats.py's own period logic (explicit --period input,
+          # else previous calendar month) rather than the wall-clock month, so a
+          # manual backfill's branch/commit/PR are labeled with the period that
+          # was actually collected.
+          if [ -n "${{ github.event.inputs.period }}" ]; then
+            PERIOD="${{ github.event.inputs.period }}"
+          else
+            PERIOD=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
+          fi
           BRANCH="automated/stats-${PERIOD}-${{ github.run_id }}"
           git checkout -b "$BRANCH"
           git commit -m "chore: add stats for ${PERIOD}"
