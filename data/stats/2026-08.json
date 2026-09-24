@@ -103,6 +103,21 @@
       "npm_stats": null
     },
     {
+      "github": "10up/block-catalog",
+      "label": "Block Catalog",
+      "github_stats": {
+        "stars": 61,
+        "watchers": 42,
+        "forks": 7,
+        "releases_this_month": 0,
+        "used_by_repositories": null,
+        "used_by_packages": 0,
+        "used_by_total": null
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
       "github": "10up/block-components",
       "label": "Block Components",
       "github_stats": {
@@ -514,6 +529,21 @@
         "rating": 98,
         "num_ratings": 8
       },
+      "npm_stats": null
+    },
+    {
+      "github": "10up/localwp-agent-tools",
+      "label": "LocalWP Agent Tools",
+      "github_stats": {
+        "stars": 44,
+        "watchers": 0,
+        "forks": 8,
+        "releases_this_month": 0,
+        "used_by_repositories": null,
+        "used_by_packages": 0,
+        "used_by_total": null
+      },
+      "wordpress_stats": null,
       "npm_stats": null
     },
     {

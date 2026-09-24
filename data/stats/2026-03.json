@@ -98,6 +98,21 @@
       }
     },
     {
+      "github": "10up/block-catalog",
+      "label": "Block Catalog",
+      "github_stats": {
+        "stars": 60,
+        "watchers": null,
+        "forks": null,
+        "releases_this_month": 0,
+        "used_by_repositories": null,
+        "used_by_packages": null,
+        "used_by_total": null
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
+    },
+    {
       "github": "10up/block-components",
       "label": "Block Components",
       "github_stats": {
@@ -483,6 +498,21 @@
         "rating": 98.0,
         "num_ratings": null
       }
+    },
+    {
+      "github": "10up/localwp-agent-tools",
+      "label": "LocalWP Agent Tools",
+      "github_stats": {
+        "stars": 15,
+        "watchers": null,
+        "forks": null,
+        "releases_this_month": 2,
+        "used_by_repositories": null,
+        "used_by_packages": null,
+        "used_by_total": null
+      },
+      "wordpress_stats": null,
+      "npm_stats": null
     },
     {
       "github": "10up/windows-azure-storage",

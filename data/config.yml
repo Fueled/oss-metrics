@@ -24,6 +24,11 @@ repos:
     wordpress_slug: "maps-block-apple"
     npm_slug: null
 
+  - github: "10up/block-catalog"
+    label: "Block Catalog"
+    wordpress_slug: "block-catalog"
+    npm_slug: null
+
   - github: "10up/block-components"
     label: "Block Components"
     wordpress_slug: null
@@ -147,6 +152,11 @@ repos:
   - github: "10up/insert-special-characters"
     label: "Insert Special Characters"
     wordpress_slug: "insert-special-characters"
+    npm_slug: null
+
+  - github: "10up/localwp-agent-tools"
+    label: "LocalWP Agent Tools"
+    wordpress_slug: null
     npm_slug: null
 
   - github: "10up/windows-azure-storage"
