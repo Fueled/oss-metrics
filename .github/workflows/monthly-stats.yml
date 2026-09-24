@@ -11,7 +11,8 @@ on:
         default: ''
 
 permissions:
-  contents: write           # Required to commit data files back to the repo
+  contents: write           # Required to push the stats branch
+  pull-requests: write      # Required to open and merge the stats PR (main requires PRs)
   pages: write              # Required to trigger a GitHub Pages build
   id-token: write           # Required by the Pages deployment API
 
@@ -65,13 +66,32 @@ jobs:
           fi
 
       - name: Commit data file
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p data/star-history
           git add data/stats/ data/star-history/
-          git diff --cached --quiet || git commit -m "chore: add stats for $(date +'%Y-%m')"
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          # main requires changes via PR (org ruleset), so push to a
+          # per-run branch and open + merge a PR instead of pushing directly.
+          PERIOD="$(date +'%Y-%m')"
+          BRANCH="automated/stats-${PERIOD}-${{ github.run_id }}"
+          git checkout -b "$BRANCH"
+          git commit -m "chore: add stats for ${PERIOD}"
+          git push -u origin "$BRANCH"
+
+          PR_URL=$(gh pr create \
+            --title "chore: add stats for ${PERIOD}" \
+            --body "Automated monthly stats collection. Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --base main --head "$BRANCH")
+          echo "Opened $PR_URL"
+          gh pr merge "$BRANCH" --squash --delete-branch
 
       - name: Trigger GitHub Pages build and wait for completion
         run: |
