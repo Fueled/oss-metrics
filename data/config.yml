@@ -154,6 +154,11 @@ repos:
     wordpress_slug: "insert-special-characters"
     npm_slug: null
 
+  - github: "10up/localwp-agent-tools"
+    label: "LocalWP Agent Tools"
+    wordpress_slug: null
+    npm_slug: null
+
   - github: "10up/windows-azure-storage"
     label: "Microsoft Azure Storage"
     wordpress_slug: "windows-azure-storage"
