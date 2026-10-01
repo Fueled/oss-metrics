@@ -1,6 +1,6 @@
 {
   "github": "10up/restricted-site-access",
-  "collected_at": "2026-09-24T14:40:45Z",
+  "collected_at": "2026-10-01T06:18:42Z",
   "weekly": [
     {
       "week_start": "2016-01-31",
@@ -1604,7 +1604,7 @@
     },
     {
       "week_start": "2023-10-01",
-      "stars": 1
+      "stars": 0
     },
     {
       "week_start": "2023-10-08",
@@ -2224,6 +2224,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

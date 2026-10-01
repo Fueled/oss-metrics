@@ -1,6 +1,6 @@
 {
   "github": "10up/action-wordpress-plugin-build-zip",
-  "collected_at": "2026-09-24T14:39:56Z",
+  "collected_at": "2026-10-01T06:17:59Z",
   "weekly": [
     {
       "week_start": "2022-11-27",
@@ -800,6 +800,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

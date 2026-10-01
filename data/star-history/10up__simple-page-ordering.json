@@ -1,6 +1,6 @@
 {
   "github": "10up/simple-page-ordering",
-  "collected_at": "2026-09-24T14:41:07Z",
+  "collected_at": "2026-10-01T06:18:58Z",
   "weekly": [
     {
       "week_start": "2017-12-10",
@@ -1836,6 +1836,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

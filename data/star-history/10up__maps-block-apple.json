@@ -1,6 +1,6 @@
 {
   "github": "10up/maps-block-apple",
-  "collected_at": "2026-09-24T14:38:39Z",
+  "collected_at": "2026-10-01T06:16:52Z",
   "weekly": [
     {
       "week_start": "2018-06-17",
@@ -1728,6 +1728,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

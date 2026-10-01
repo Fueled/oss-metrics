@@ -1,6 +1,6 @@
 {
   "github": "10up/safe-svg",
-  "collected_at": "2026-09-24T14:40:57Z",
+  "collected_at": "2026-10-01T06:18:50Z",
   "weekly": [
     {
       "week_start": "2018-05-13",
@@ -1748,7 +1748,11 @@
     },
     {
       "week_start": "2026-09-20",
-      "stars": 2
+      "stars": 3
+    },
+    {
+      "week_start": "2026-09-27",
+      "stars": 0
     }
   ]
 }

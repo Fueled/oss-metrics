@@ -1,6 +1,6 @@
 {
   "github": "10up/localwp-agent-tools",
-  "collected_at": "2026-09-24T20:43:03Z",
+  "collected_at": "2026-10-01T06:18:27Z",
   "weekly": [
     {
       "week_start": "2026-03-08",
@@ -116,6 +116,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

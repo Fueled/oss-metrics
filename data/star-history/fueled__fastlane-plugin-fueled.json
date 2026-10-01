@@ -1,6 +1,6 @@
 {
   "github": "Fueled/fastlane-plugin-fueled",
-  "collected_at": "2026-09-24T14:39:37Z",
+  "collected_at": "2026-10-01T06:17:40Z",
   "weekly": [
     {
       "week_start": "2021-11-14",
@@ -1016,6 +1016,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

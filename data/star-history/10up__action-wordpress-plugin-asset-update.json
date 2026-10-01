@@ -1,6 +1,6 @@
 {
   "github": "10up/action-wordpress-plugin-asset-update",
-  "collected_at": "2026-09-24T14:40:01Z",
+  "collected_at": "2026-10-01T06:18:03Z",
   "weekly": [
     {
       "week_start": "2019-08-18",
@@ -1484,6 +1484,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

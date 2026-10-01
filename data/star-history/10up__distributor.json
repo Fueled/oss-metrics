@@ -1,6 +1,6 @@
 {
   "github": "10up/distributor",
-  "collected_at": "2026-09-24T14:39:09Z",
+  "collected_at": "2026-10-01T06:17:15Z",
   "weekly": [
     {
       "week_start": "2016-07-24",
@@ -1504,7 +1504,7 @@
     },
     {
       "week_start": "2023-10-01",
-      "stars": 3
+      "stars": 2
     },
     {
       "week_start": "2023-10-08",
@@ -2124,6 +2124,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

@@ -1,6 +1,6 @@
 {
   "github": "10up/retro-winamp-block",
-  "collected_at": "2026-09-24T14:41:23Z",
+  "collected_at": "2026-10-01T06:19:10Z",
   "weekly": [
     {
       "week_start": "2020-06-07",
@@ -1316,6 +1316,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]
