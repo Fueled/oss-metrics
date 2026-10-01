@@ -1,6 +1,6 @@
 {
   "github": "10up/action-repo-automator",
-  "collected_at": "2026-09-24T14:40:04Z",
+  "collected_at": "2026-10-01T06:18:05Z",
   "weekly": [
     {
       "week_start": "2022-07-10",
@@ -880,6 +880,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]

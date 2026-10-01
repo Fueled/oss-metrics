@@ -1,6 +1,6 @@
 {
   "github": "10up/Open-Source-Best-Practices",
-  "collected_at": "2026-09-24T14:40:36Z",
+  "collected_at": "2026-10-01T06:18:35Z",
   "weekly": [
     {
       "week_start": "2019-08-04",
@@ -1492,6 +1492,10 @@
     },
     {
       "week_start": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-09-27",
       "stars": 0
     }
   ]
