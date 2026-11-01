@@ -1,6 +1,6 @@
 {
   "github": "10up/Ad-Refresh-Control",
-  "collected_at": "2026-10-01T06:16:43Z",
+  "collected_at": "2026-11-01T06:09:28Z",
   "weekly": [
     {
       "week_start": "2020-05-24",
@@ -1328,6 +1328,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]

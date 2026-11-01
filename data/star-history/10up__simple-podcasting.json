@@ -1,6 +1,6 @@
 {
   "github": "10up/simple-podcasting",
-  "collected_at": "2026-10-01T06:19:02Z",
+  "collected_at": "2026-11-01T06:11:57Z",
   "weekly": [
     {
       "week_start": "2018-02-25",
@@ -472,7 +472,7 @@
     },
     {
       "week_start": "2020-05-24",
-      "stars": 1
+      "stars": 0
     },
     {
       "week_start": "2020-05-31",
@@ -1796,6 +1796,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]

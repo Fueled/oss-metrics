@@ -1,6 +1,6 @@
 {
   "github": "10up/ads-txt",
-  "collected_at": "2026-10-01T06:16:40Z",
+  "collected_at": "2026-11-01T06:09:24Z",
   "weekly": [
     {
       "week_start": "2017-12-03",
@@ -1844,6 +1844,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]

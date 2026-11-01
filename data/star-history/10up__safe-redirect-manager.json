@@ -1,6 +1,6 @@
 {
   "github": "10up/safe-redirect-manager",
-  "collected_at": "2026-10-01T06:18:47Z",
+  "collected_at": "2026-11-01T06:11:37Z",
   "weekly": [
     {
       "week_start": "2012-08-19",
@@ -2948,6 +2948,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]

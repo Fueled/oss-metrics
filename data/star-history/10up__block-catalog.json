@@ -1,6 +1,6 @@
 {
   "github": "10up/block-catalog",
-  "collected_at": "2026-10-01T06:16:54Z",
+  "collected_at": "2026-11-01T06:09:41Z",
   "weekly": [
     {
       "week_start": "2022-11-20",
@@ -652,7 +652,7 @@
     },
     {
       "week_start": "2025-12-28",
-      "stars": 3
+      "stars": 2
     },
     {
       "week_start": "2026-01-04",
@@ -808,6 +808,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]

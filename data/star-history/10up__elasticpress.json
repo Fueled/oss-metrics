@@ -1,6 +1,6 @@
 {
   "github": "10up/ElasticPress",
-  "collected_at": "2026-10-01T06:17:23Z",
+  "collected_at": "2026-11-01T06:10:16Z",
   "weekly": [
     {
       "week_start": "2014-06-08",
@@ -784,7 +784,7 @@
     },
     {
       "week_start": "2018-03-04",
-      "stars": 5
+      "stars": 4
     },
     {
       "week_start": "2018-03-11",
@@ -2452,7 +2452,7 @@
     },
     {
       "week_start": "2026-03-01",
-      "stars": 4
+      "stars": 3
     },
     {
       "week_start": "2026-03-08",
@@ -2464,7 +2464,7 @@
     },
     {
       "week_start": "2026-03-22",
-      "stars": 2
+      "stars": 1
     },
     {
       "week_start": "2026-03-29",
@@ -2572,6 +2572,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]

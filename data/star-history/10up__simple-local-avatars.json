@@ -1,6 +1,6 @@
 {
   "github": "10up/simple-local-avatars",
-  "collected_at": "2026-10-01T06:18:54Z",
+  "collected_at": "2026-11-01T06:11:47Z",
   "weekly": [
     {
       "week_start": "2016-01-31",
@@ -804,7 +804,7 @@
     },
     {
       "week_start": "2019-12-01",
-      "stars": 1
+      "stars": 0
     },
     {
       "week_start": "2019-12-08",
@@ -2229,6 +2229,22 @@
     {
       "week_start": "2026-09-27",
       "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
+      "stars": 1
     }
   ]
 }

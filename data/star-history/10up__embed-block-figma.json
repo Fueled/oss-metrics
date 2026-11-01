@@ -1,6 +1,6 @@
 {
   "github": "10up/embed-block-figma",
-  "collected_at": "2026-10-01T06:17:33Z",
+  "collected_at": "2026-11-01T06:10:22Z",
   "weekly": [
     {
       "week_start": "2024-03-10",
@@ -536,6 +536,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]
