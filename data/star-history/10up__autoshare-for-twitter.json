@@ -1,6 +1,6 @@
 {
   "github": "10up/autoshare-for-twitter",
-  "collected_at": "2026-10-01T06:16:48Z",
+  "collected_at": "2026-11-01T06:09:34Z",
   "weekly": [
     {
       "week_start": "2019-01-20",
@@ -1608,6 +1608,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]

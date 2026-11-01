@@ -1,6 +1,6 @@
 {
   "github": "10up/convert-to-blocks",
-  "collected_at": "2026-10-01T06:17:03Z",
+  "collected_at": "2026-11-01T06:09:52Z",
   "weekly": [
     {
       "week_start": "2020-09-13",
@@ -1264,6 +1264,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]

@@ -1,6 +1,6 @@
 {
   "github": "10up/classifai",
-  "collected_at": "2026-10-01T06:17:01Z",
+  "collected_at": "2026-11-01T06:09:49Z",
   "weekly": [
     {
       "week_start": "2018-06-17",
@@ -160,7 +160,7 @@
     },
     {
       "week_start": "2019-03-17",
-      "stars": 2
+      "stars": 1
     },
     {
       "week_start": "2019-03-24",
@@ -1733,6 +1733,22 @@
     {
       "week_start": "2026-09-27",
       "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-25",
+      "stars": 1
     }
   ]
 }

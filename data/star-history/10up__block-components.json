@@ -1,6 +1,6 @@
 {
   "github": "10up/block-components",
-  "collected_at": "2026-10-01T06:16:57Z",
+  "collected_at": "2026-11-01T06:09:45Z",
   "weekly": [
     {
       "week_start": "2021-01-10",
@@ -1196,6 +1196,22 @@
     },
     {
       "week_start": "2026-09-27",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-04",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "week_start": "2026-10-18",
+      "stars": 1
+    },
+    {
+      "week_start": "2026-10-25",
       "stars": 0
     }
   ]
